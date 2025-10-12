@@ -15,7 +15,7 @@ class FieldStatus(Enum):
     MISSING = "missing"
 
 class StudentDatabase:
-    def __init__(self, connection_string=None):
+    def __init__(self, connection_string=None, database_name="school_system"):
         """
         Initialize MongoDB connection
         
@@ -24,6 +24,7 @@ class StudentDatabase:
                 - None: Will try localhost:27017 (default)
                 - "mongodb://localhost:27017/": Local MongoDB
                 - "mongodb+srv://user:pass@cluster.mongodb.net/": MongoDB Atlas
+            database_name: Name of the database to use (default: "school_system")
         """
         if connection_string is None:
             connection_string = "mongodb://localhost:27017/"
@@ -186,7 +187,7 @@ class StudentDatabase:
                 "image": student_doc["image"]["status"] == FieldStatus.WAITING.value,
                 "audio": student_doc["audio"]["status"] == FieldStatus.WAITING.value
             },
-            "added_at": datetime.utcnow()
+            "added_at": datetime.now(timezone.utc)
         }
         
         self.pending_media.update_one(
@@ -214,7 +215,7 @@ class StudentDatabase:
                 f"{media_type}.filename": filename,
                 f"{media_type}.status": FieldStatus.COMPLETE.value,
                 f"field_status.{media_type}": FieldStatus.COMPLETE.value,
-                "updated_at": datetime.utcnow()
+                "updated_at": datetime.now(timezone.utc)
             }
             
             result = self.students.update_one(
@@ -350,6 +351,22 @@ class StudentDatabase:
             "pending_media": pending_media,
             "average_completion": round(avg_completion, 2),
             "by_department": {dept["_id"]: dept["count"] for dept in by_dept}
+        }
+    
+    def view_all_students(self, limit=50):
+        """View all students with pagination"""
+        cursor = self.students.find().limit(limit)
+        return list(cursor)
+    
+    def view_student_details(self, student_id):
+        """View detailed information for a specific student"""
+        return self.students.find_one({"student_id": student_id})
+    
+    def export_to_dict(self):
+        """Export all data as dictionary for viewing"""
+        return {
+            "students": list(self.students.find()),
+            "pending_media": list(self.pending_media.find())
         }
     
     def clear_all_data(self):
@@ -489,7 +506,12 @@ if __name__ == "__main__":
     
     # Example 1: Process Excel file (file extraction - image/audio waiting)
     print("\n📁 Processing Excel file...")
-    StudentDataExtractor.process_excel("students.xlsx", db)
+    excel_path = "students.xlsx"
+    if os.path.exists(excel_path):
+        StudentDataExtractor.process_excel(excel_path, db)
+    else:
+        print(f"⚠️ Excel file not found: {excel_path}")
+        print("   Place your Excel file in the same directory or update the path")
     
     # Example 2: Manual student input (all fields waiting if empty)
     print("\n✍️ Manual student entry...")
@@ -497,9 +519,11 @@ if __name__ == "__main__":
         "student_id": "2024-0001",
         "surname": "Dela Cruz",
         "first_name": "Juan",
+        "full_name": "Dela Cruz, Juan",  # Added full_name
         "course": "BSCS",
         "section": "A",
-        "year": "3"
+        "year": "3",
+        "department": "CCS"  # Added department
     }
     db.create_student_record(manual_student, source="manual_input")
     
@@ -512,14 +536,14 @@ if __name__ == "__main__":
     print("\n⏳ Students waiting for media:")
     pending = db.get_pending_media_students()
     for student in pending:
-        print(f"  - {student['full_name']} ({student['student_id']})")
+        print(f"  - {student.get('full_name', 'N/A')} ({student['student_id']})")
         print(f"    Waiting: Image={student['waiting_for']['image']}, Audio={student['waiting_for']['audio']}")
     
     # Example 5: Search
     print("\n🔍 Search results:")
     results = db.search_students(query="Cruz", filters={"course": "BSCS"})
     for student in results:
-        print(f"  - {student['full_name']} - {student['completion_percentage']:.1f}% complete")
+        print(f"  - {student.get('full_name', 'N/A')} - {student['completion_percentage']:.1f}% complete")
     
     # Statistics
     stats = db.get_statistics()
@@ -527,5 +551,6 @@ if __name__ == "__main__":
     print(f"  Total Students: {stats['total_students']}")
     print(f"  Pending Media: {stats['pending_media']}")
     print(f"  Avg Completion: {stats['average_completion']:.1f}%")
+    print(f"  By Department: {stats['by_department']}")
     
     db.close()

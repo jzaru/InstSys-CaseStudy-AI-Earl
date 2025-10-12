@@ -9,12 +9,21 @@ class SchoolInformationSystem:
     def __init__(self, connection_string=None):
         """Initialize the school system with MongoDB"""
         self.db = StudentDatabase(connection_string)
-        # Use the actual path where your Excel files are
-        self.base_path = r"D:\Desktop HDD\excel"
+        
+        # Get the backend directory (2 levels up from utils folder)
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        backend_dir = os.path.dirname(current_dir)  # Go up to backend folder
+        
+        # Build relative paths from backend directory
+        self.base_path = os.path.join(backend_dir, "utils", "uploaded_files")
         self.excel = os.path.join(self.base_path, "excel")
-        self.upload_folder = os.path.join(self.base_path, "uploaded_files")
+        self.upload_folder = self.base_path
         self.student_excel_folder = os.path.join(self.upload_folder, "student_list_excel")
         self.processed_folder = os.path.join(self.upload_folder, "processed")
+        
+        # Create directories if they don't exist
+        for folder in [self.base_path, self.excel, self.student_excel_folder, self.processed_folder]:
+            os.makedirs(folder, exist_ok=True)
         
         # Create processed folder if it doesn't exist
         os.makedirs(self.processed_folder, exist_ok=True)
