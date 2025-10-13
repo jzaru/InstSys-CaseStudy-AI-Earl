@@ -6876,6 +6876,781 @@
       "final_answer": "Earl Ruzzle Cruz is a student in the BSCS program at PDM.\n\n- Student profile for Cruz, Earl Ruzzle. ID: PDM-2023-003195. Program: BSCS, Year: 3, Section: A. Department: CCS. [students]",
       "error_message": null,
       "corruption_details": null
+    },
+    {
+      "query": "who is rebecca",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "Rebecca"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 6.531276702880859,
+      "timestamp": "2025-10-12T15:18:50.549271",
+      "final_answer": "Rebecca Stone is a student in the BSCS program at PDM.\n\n- Student profile for Stone, Rebecca. ID: PDM-2025-000036. Program: BSCS, Year: 2, Section: A. Department: CCS. [students]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "all 3rd year students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "student",
+                "year_level": 3
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.4481539726257324,
+      "timestamp": "2025-10-12T15:20:44.877659",
+      "final_answer": "There is 1 relevant student in the 3rd year.\n\n- Student profile for Escobar, Jared. ID: PDM-2025-000651. Program: BSHM, Year: 3, Section: B. Department: CHTM. [students]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "all 3rd year students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "year_level": 3,
+                "role": "student"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 3.0184695720672607,
+      "timestamp": "2025-10-12T15:21:37.504317",
+      "final_answer": "There is 1 relevant student in the 3rd year.\n\n- Student profile for Escobar, Jared. ID: PDM-2025-000651. Program: BSHM, Year: 3, Section: B. Department: CHTM. [students]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "all 2nd yr students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "year_level": 2,
+                "role": "student"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.44547438621521,
+      "timestamp": "2025-10-12T15:21:46.620142",
+      "final_answer": "There is 1 relevant student in the 2nd year.\n\n- Student profile for Carpenter, Michael. ID: PDM-2025-000031. Program: BSCS, Year: 2, Section: A. Department: CCS. [students]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "cls",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "student"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 2.018800973892212,
+      "timestamp": "2025-10-12T15:22:32.843135",
+      "final_answer": "I could not find any relevant documents to answer your query.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "show all students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "student",
+                "n_results": 1000
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 2.0189857482910156,
+      "timestamp": "2025-10-12T15:22:49.634196",
+      "final_answer": "I could not find any relevant documents containing the list of students.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "all 2nd year students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "student",
+                "year_level": 2
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.187849283218384,
+      "timestamp": "2025-10-12T15:23:00.212033",
+      "final_answer": "Here is the list of all 2nd year students:\n\n- Student profile for Carpenter, Michael. ID: PDM-2025-000031. Program: BSCS, Year: 2, Section: A. Department: CCS. [students]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "all bscs students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "program": "BSCS",
+                "role": "student"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.0600852966308594,
+      "timestamp": "2025-10-12T15:23:45.277239",
+      "final_answer": "Here is the list of all BSCS students:\n\n- Student profile for Carpenter, Michael. ID: PDM-2025-000031. Program: BSCS, Year: 2, Section: A. Department: CCS. [students]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "all bscs students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "program": "BSCS",
+                "role": "student"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 7.794009208679199,
+      "timestamp": "2025-10-12T15:27:36.376592",
+      "final_answer": "Here is the complete list of all BSCS students:\n\n- Total Students Found: 30\n\n1. Ali, Charles\n   - Student ID: PDM-2025-000049\n   - Department: CCS\n   - Contact: 9778669996\n   - Guardian: Jessica Woodard\n   - Guardian Contact:\n\n2. Barnes, Mark\n   - Student ID: PDM-2025-000035\n   - Department: CCS\n   - Contact: 9295486387\n   - Guardian: Matthew Colon\n   - Guardian Contact:\n\n3. Bridges, Mary\n   - Student ID: PDM-2025-000045\n   - Department: CCS\n   - Contact: 9707570785\n   - Guardian: Robert Lopez\n   - Guardian Contact:\n\n4. Bright, Ryan\n   - Student ID: PDM-2025-000040\n   - Department: CCS\n   - Contact: 9750076283\n   - Guardian: Matthew Chapman\n   - Guardian Contact:\n\n5. Brooks, Christina\n   - Student ID: PDM-2025-000054\n   - Department: CCS\n   - Contact: 9161784194\n   - Guardian: Susan Hernandez\n   - Guardian Contact:\n\n6. Burton, Joe\n   - Student ID: PDM-2025-000051\n   - Department: CCS\n   - Contact: 9766532627\n   - Guardian: Patrick Kirk\n   - Guardian Contact:\n\n7. Carpenter, Michael\n   - Student ID: PDM-2025-000031\n   - Department: CCS\n   - Contact: 9211796807\n   - Guardian: Victor Martin\n   - Guardian Contact:\n\n8. Castro, Mary\n   - Student ID: PDM-2025-000060\n   - Department: CCS\n   - Contact: 9571735838\n   - Guardian: George Howard\n   - Guardian Contact:\n\n9. Clarke, Jacob\n   - Student ID: PDM-2025-000042\n   - Department: CCS\n   - Contact: 9715968207\n   - Guardian: Terry Moore\n   - Guardian Contact:\n\n10. Cox, Susan\n    - Student ID: PDM-2025-000047\n    - Department: CCS\n    - Contact: 9881949305\n    - Guardian: Scott French\n    - Guardian Contact:\n\n11. Gray, Mary\n    - Student ID: PDM-2025-000050\n    - Department: CCS\n    - Contact: 9285572911\n    - Guardian: Alicia Cobb\n    - Guardian Contact:\n\n12. Hodge, Karen\n    - Student ID: PDM-2025-000043\n    - Department: CCS\n    - Contact: 9660074696\n    - Guardian: Sarah Clark\n    - Guardian Contact:\n\n13. Hudson, Samantha\n    - Student ID: PDM-2025-000046\n    - Department: CCS\n    - Contact: 9246072598\n    - Guardian: Gail Boyer\n    - Guardian Contact:\n\n14. Martinez, Maria\n    - Student ID: PDM-2025-000033\n    - Department: CCS\n    - Contact: 9806732623\n    - Guardian: Abigail Lawrence\n    - Guardian Contact:\n\n15. Miles, David\n    - Student ID: PDM-2025-000059\n    - Department: CCS\n    - Contact: 9650327898\n    - Guardian: Debbie Burton\n    - Guardian Contact:\n\n16. Miles, Karen\n    - Student ID: PDM-2025-000044\n    - Department: CCS\n    - Contact: 9551470667\n    - Guardian: Teresa Jarvis\n    - Guardian Contact:\n\n17. Miller, Logan\n    - Student ID: PDM-2025-000034\n    - Department: CCS\n    - Contact: 9991725464\n    - Guardian: Terry Schmidt\n    - Guardian Contact:\n\n18. Ochoa, Jaime\n    - Student ID: PDM-2025-000038\n    - Department: CCS\n    - Contact: 9829905736\n    - Guardian: Rebecca Butler\n    - Guardian Contact:\n\n19. Pace, Lee\n    - Student ID: PDM-2025-000037\n    - Department: CCS\n    - Contact: 9948747224\n    - Guardian: Jaime Fields\n    - Guardian Contact:\n\n20. Palmer, Brian\n    - Student ID: PDM-2025-000058\n    - Department: CCS\n    - Contact: 9589836425\n    - Guardian: Kathy Hunt\n    - Guardian Contact:\n\n21. Richard, Jackie\n    - Student ID: PDM-2025-000055\n    - Department: CCS\n    - Contact: 9592971387\n    - Guardian: Kristina Garner\n    - Guardian Contact:\n\n22. Roberts, Steven\n    - Student ID: PDM-2025-000057\n    - Department: CCS\n    - Contact: 9619121737\n    - Guardian: Craig Callahan\n    - Guardian Contact:\n\n23. Ruiz, Erin\n    - Student ID: PDM-2025-000032\n    - Department: CCS\n    - Contact: 9263602462\n    - Guardian: Crystal Johnson\n    - Guardian Contact:\n\n24. Stone, Rebecca\n    - Student ID: PDM-2025-000036\n    - Department: CCS\n    - Contact: 9524683884\n    - Guardian: Kimberly Rodriguez\n    - Guardian Contact:\n\n25. Sutton, Christopher\n    - Student ID: PDM-2025-000053\n    - Department: CCS\n    - Contact: 9064873166\n    - Guardian: Robert Smith\n    - Guardian Contact:\n\n26. Valdez, Elizabeth\n    - Student ID: PDM-2025-000048\n    - Department: CCS\n    - Contact: 9393149877\n    - Guardian: Sean Berry\n    - Guardian Contact:\n\n27. Walker, John\n    - Student ID: PDM-2025-000052\n    - Department: CCS\n    - Contact: 9192445008\n    - Guardian: Wanda Roberts\n    - Guardian Contact:\n\n28. Walker, Megan\n    - Student ID: PDM-2025-000056\n    - Department: CCS\n    - Contact: 9655792439\n    - Guardian: Marcus Stafford\n    - Guardian Contact:\n\n29. White, Rhonda\n    - Student ID: PDM-2025-000039\n    - Department: CCS\n    - Contact: 9486019579\n    - Guardian: Heather Davis\n    - Guardian Contact:\n\n30. Williams, Chloe\n    - Student ID: PDM-2025-000041\n    - Department: CCS\n    - Contact: 9945427450\n    - Guardian: Anthony Carter\n    - Guardian Contact:\n\n[system_summary]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "5",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "5"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 2.361156702041626,
+      "timestamp": "2025-10-12T15:30:30.515989",
+      "final_answer": "I couldn't find any relevant information related to your query.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "all students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "student"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "FAIL_EMPTY",
+      "analyst_mode": "online",
+      "execution_mode": "fallback",
+      "results_count": 0,
+      "execution_time": 2.097264051437378,
+      "timestamp": "2025-10-12T15:30:35.732009",
+      "final_answer": "I couldn't find any relevant information related to your query.",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "all students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "student",
+                "n_results": 1000
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 13.178440570831299,
+      "timestamp": "2025-10-12T15:36:47.661047",
+      "final_answer": "Here is the complete list of all students:\n\nFound a total of 50 students, organized as follows:\n\n## BSCS - Year 2 - Section A (30 students)\n\n**1. Ali, Charles**\n- **Student ID:** PDM-2025-000049\n- **Department:** CCS\n- **Contact:** 9778669996\n- **Guardian:** Jessica Woodard\n- **Guardian Contact:**\n\n**2. Barnes, Mark**\n- **Student ID:** PDM-2025-000035\n- **Department:** CCS\n- **Contact:** 9295486387\n- **Guardian:** Matthew Colon\n- **Guardian Contact:**\n\n**3. Bridges, Mary**\n- **Student ID:** PDM-2025-000045\n- **Department:** CCS\n- **Contact:** 9707570785\n- **Guardian:** Robert Lopez\n- **Guardian Contact:**\n\n**4. Bright, Ryan**\n- **Student ID:** PDM-2025-000040\n- **Department:** CCS\n- **Contact:** 9750076283\n- **Guardian:** Matthew Chapman\n- **Guardian Contact:**\n\n**5. Brooks, Christina**\n- **Student ID:** PDM-2025-000054\n- **Department:** CCS\n- **Contact:** 9161784194\n- **Guardian:** Susan Hernandez\n- **Guardian Contact:**\n\n**6. Burton, Joe**\n- **Student ID:** PDM-2025-000051\n- **Department:** CCS\n- **Contact:** 9766532627\n- **Guardian:** Patrick Kirk\n- **Guardian Contact:**\n\n**7. Carpenter, Michael**\n- **Student ID:** PDM-2025-000031\n- **Department:** CCS\n- **Contact:** 9211796807\n- **Guardian:** Victor Martin\n- **Guardian Contact:**\n\n**8. Castro, Mary**\n- **Student ID:** PDM-2025-000060\n- **Department:** CCS\n- **Contact:** 9571735838\n- **Guardian:** George Howard\n- **Guardian Contact:**\n\n**9. Clarke, Jacob**\n- **Student ID:** PDM-2025-000042\n- **Department:** CCS\n- **Contact:** 9715968207\n- **Guardian:** Terry Moore\n- **Guardian Contact:**\n\n**10. Cox, Susan**\n- **Student ID:** PDM-2025-000047\n- **Department:** CCS\n- **Contact:** 9881949305\n- **Guardian:** Scott French\n- **Guardian Contact:**\n\n**11. Gray, Mary**\n- **Student ID:** PDM-2025-000050\n- **Department:** CCS\n- **Contact:** 9285572911\n- **Guardian:** Alicia Cobb\n- **Guardian Contact:**\n\n**12. Hodge, Karen**\n- **Student ID:** PDM-2025-000043\n- **Department:** CCS\n- **Contact:** 9660074696\n- **Guardian:** Sarah Clark\n- **Guardian Contact:**\n\n**13. Hudson, Samantha**\n- **Student ID:** PDM-2025-000046\n- **Department:** CCS\n- **Contact:** 9246072598\n- **Guardian:** Gail Boyer\n- **Guardian Contact:**\n\n**14. Martinez, Maria**\n- **Student ID:** PDM-2025-000033\n- **Department:** CCS\n- **Contact:** 9806732623\n- **Guardian:** Abigail Lawrence\n- **Guardian Contact:**\n\n**15. Miles, David**\n- **Student ID:** PDM-2025-000059\n- **Department:** CCS\n- **Contact:** 9650327898\n- **Guardian:** Debbie Burton\n- **Guardian Contact:**\n\n**16. Miles, Karen**\n- **Student ID:** PDM-2025-000044\n- **Department:** CCS\n- **Contact:** 9551470667\n- **Guardian:** Teresa Jarvis\n- **Guardian Contact:**\n\n**17. Miller, Logan**\n- **Student ID:** PDM-2025-000034\n- **Department:** CCS\n- **Contact:** 9991725464\n- **Guardian:** Terry Schmidt\n- **Guardian Contact:**\n\n**18. Ochoa, Jaime**\n- **Student ID:** PDM-2025-000038\n- **Department:** CCS\n- **Contact:** 9829905736\n- **Guardian:** Rebecca Butler\n- **Guardian Contact:**\n\n**19. Pace, Lee**\n- **Student ID:** PDM-2025-000037\n- **Department:** CCS\n- **Contact:** 9948747224\n- **Guardian:** Jaime Fields\n- **Guardian Contact:**\n\n**20. Palmer, Brian**\n- **Student ID:** PDM-2025-000058\n- **Department:** CCS\n- **Contact:** 9589836425\n- **Guardian:** Kathy Hunt\n- **Guardian Contact:**\n\n**21. Richard, Jackie**\n- **Student ID:** PDM-2025-000055\n- **Department:** CCS\n- **Contact:** 9592971387\n- **Guardian:** Kristina Garner\n- **Guardian Contact:**\n\n**22. Roberts, Steven**\n- **Student ID:** PDM-2025-000057\n- **Department:** CCS\n- **Contact:** 9619121737\n- **Guardian:** Craig Callahan\n- **Guardian Contact:**\n\n**23. Ruiz, Erin**\n- **Student ID:** PDM-2025-000032\n- **Department:** CCS\n- **Contact:** 9263602462\n- **Guardian:** Crystal Johnson\n- **Guardian Contact:**\n\n**24. Stone, Rebecca**\n- **Student ID:** PDM-2025-000036\n- **Department:** CCS\n- **Contact:** 9524683884\n- **Guardian:** Kimberly Rodriguez\n- **Guardian Contact:**\n\n**25. Sutton, Christopher**\n- **Student ID:** PDM-2025-000053\n- **Department:** CCS\n- **Contact:** 9064873166\n- **Guardian:** Robert Smith\n- **Guardian Contact:**\n\n**26. Valdez, Elizabeth**\n- **Student ID:** PDM-2025-000048\n- **Department:** CCS\n- **Contact:** 9393149877\n- **Guardian:** Sean Berry\n- **Guardian Contact:**\n\n**27. Walker, John**\n- **Student ID:** PDM-2025-000052\n- **Department:** CCS\n- **Contact:** 9192445008\n- **Guardian:** Wanda Roberts\n- **Guardian Contact:**\n\n**28. Walker, Megan**\n- **Student ID:** PDM-2025-000056\n- **Department:** CCS\n- **Contact:** 9655792439\n- **Guardian:** Marcus Stafford\n- **Guardian Contact:**\n\n**29. White, Rhonda**\n- **Student ID:** PDM-2025-000039\n- **Department:** CCS\n- **Contact:** 9486019579\n- **Guardian:** Heather Davis\n- **Guardian Contact:**\n\n**30. Williams, Chloe**\n- **Student ID:** PDM-2025-000041\n- **Department:** CCS\n- **Contact:** 9945427450\n- **Guardian:** Anthony Carter\n- **Guardian Contact:**\n\n## BSHM - Year 3 - Section B (20 students)\n\n**1. Andrea Davis**\n- **Student ID:** PDM-2025-000660\n- **Department:** CHTM\n- **Contact:** 9400311508\n- **Guardian:** Monica Thomas\n- **Guardian Contact:**\n\n**2. Cesar Ruiz**\n- **Student ID:** PDM-2025-000652\n- **Department:** CHTM\n- **Contact:** 9927444491\n- **Guardian:** Alyssa Simon\n- **Guardian Contact:**\n\n**3. David Mayer**\n- **Student ID:** PDM-2025-000656\n- **Department:** CHTM\n- **Contact:** 9286097773\n- **Guardian:** Crystal Coleman\n- **Guardian Contact:**\n\n**4. Dennis Walsh**\n- **Student ID:** PDM-2025-000657\n- **Department:** CHTM\n- **Contact:** 9311017068\n- **Guardian:** Jennifer Bryant\n- **Guardian Contact:**\n\n**5. Gregory Arnold**\n- **Student ID:** PDM-2025-000670\n- **Department:** CHTM\n- **Contact:** 9507061879\n- **Guardian:** Wayne Briggs\n- **Guardian Contact:**\n\n**6. Jared Escobar**\n- **Student ID:** PDM-2025-000651\n- **Department:** CHTM\n- **Contact:** 9153564607\n- **Guardian:** Mrs. Christina Moore\n- **Guardian Contact:**\n\n**7. Jesse Conway**\n- **Student ID:** PDM-2025-000659\n- **Department:** CHTM\n- **Contact:** 9684468939\n- **Guardian:** Lindsay Jones\n- **Guardian Contact:**\n\n**8. Karen Edwards**\n- **Student ID:** PDM-2025-000663\n- **Department:** CHTM\n- **Contact:** 9839833287\n- **Guardian:** Jonathan Sanchez\n- **Guardian Contact:**\n\n**9. Katherine Stewart**\n- **Student ID:** PDM-2025-000664\n- **Department:** CHTM\n- **Contact:** 9296163793\n- **Guardian:** Elizabeth Beck\n- **Guardian Contact:**\n\n**10. Mia Matthews**\n- **Student ID:** PDM-2025-000653\n- **Department:** CHTM\n- **Contact:** 9736892982\n- **Guardian:** Kristi Griffith\n- **Guardian Contact:**\n\n**11. Michelle Garza**\n- **Student ID:** PDM-2025-000665\n- **Department:** CHTM\n- **Contact:** 9976285287\n- **Guardian:** Arthur Long\n- **Guardian Contact:**\n\n**12. Molly Bolton**\n- **Student ID:** PDM-2025-000668\n- **Department:** CHTM\n- **Contact:** 9303459375\n- **Guardian:** Mark Espinoza\n- **Guardian Contact:**\n\n**13. Raymond Fields**\n- **Student ID:** PDM-2025-000666\n- **Department:** CHTM\n- **Contact:** 9640093534\n- **Guardian:** Oscar Jones\n- **Guardian Contact:**\n\n**14. Ricardo Lucas**\n- **Student ID:** PDM-2025-000655\n- **Department:** CHTM\n- **Contact:** 9589593908\n- **Guardian:** Miss Kimberly Flores\n- **Guardian Contact:**\n\n**15. Ronnie Cummings**\n- **Student ID:** PDM-2025-000669\n- **Department:** CHTM\n- **Contact:** 9764787234\n- **Guardian:** Danielle Olson\n- **Guardian Contact:**\n\n**16. Stephanie Larsen**\n- **Student ID:** PDM-2025-000667\n- **Department:** CHTM\n- **Contact:** 9976491362\n- **Guardian:** Jean Davis\n- **Guardian Contact:**\n\n**17. Stephanie Moreno**\n- **Student ID:** PDM-2025-000661\n- **Department:** CHTM\n- **Contact:** 9734779567\n- **Guardian:** Sean Cardenas\n- **Guardian Contact:**\n\n**18. Susan Munoz**\n- **Student ID:** PDM-2025-000662\n- **Department:** CHTM\n- **Contact:** 9267797044\n- **Guardian:** Tonya Lambert\n- **Guardian Contact:**\n\n**19. Suzanne Martin**\n- **Student ID:** PDM-2025-000654\n- **Department:** CHTM\n- **Contact:** 9231045520\n- **Guardian:** Brenda Shepard\n- **Guardian Contact:**\n\n**20. Tracy House**\n- **Student ID:** PDM-2025-000658\n- **Department:** CHTM\n- **Contact:** 9503865959\n- **Guardian:** Anthony Allen\n- **Guardian Contact:**\n\n- [system_summary]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "all students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "student",
+                "n_results": 1000
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 12.870766162872314,
+      "timestamp": "2025-10-12T15:37:43.172069",
+      "final_answer": "Here is the complete list of all students:\n\nFound a total of 50 students, organized as follows:\n\n## BSCS - Year 2 - Section A (30 students)\n\n**1. Ali, Charles**\n- **Student ID:** PDM-2025-000049\n- **Department:** CCS\n- **Contact:** 9778669996\n- **Guardian:** Jessica Woodard\n- **Guardian Contact:**\n\n**2. Barnes, Mark**\n- **Student ID:** PDM-2025-000035\n- **Department:** CCS\n- **Contact:** 9295486387\n- **Guardian:** Matthew Colon\n- **Guardian Contact:**\n\n**3. Bridges, Mary**\n- **Student ID:** PDM-2025-000045\n- **Department:** CCS\n- **Contact:** 9707570785\n- **Guardian:** Robert Lopez\n- **Guardian Contact:**\n\n**4. Bright, Ryan**\n- **Student ID:** PDM-2025-000040\n- **Department:** CCS\n- **Contact:** 9750076283\n- **Guardian:** Matthew Chapman\n- **Guardian Contact:**\n\n**5. Brooks, Christina**\n- **Student ID:** PDM-2025-000054\n- **Department:** CCS\n- **Contact:** 9161784194\n- **Guardian:** Susan Hernandez\n- **Guardian Contact:**\n\n**6. Burton, Joe**\n- **Student ID:** PDM-2025-000051\n- **Department:** CCS\n- **Contact:** 9766532627\n- **Guardian:** Patrick Kirk\n- **Guardian Contact:**\n\n**7. Carpenter, Michael**\n- **Student ID:** PDM-2025-000031\n- **Department:** CCS\n- **Contact:** 9211796807\n- **Guardian:** Victor Martin\n- **Guardian Contact:**\n\n**8. Castro, Mary**\n- **Student ID:** PDM-2025-000060\n- **Department:** CCS\n- **Contact:** 9571735838\n- **Guardian:** George Howard\n- **Guardian Contact:**\n\n**9. Clarke, Jacob**\n- **Student ID:** PDM-2025-000042\n- **Department:** CCS\n- **Contact:** 9715968207\n- **Guardian:** Terry Moore\n- **Guardian Contact:**\n\n**10. Cox, Susan**\n- **Student ID:** PDM-2025-000047\n- **Department:** CCS\n- **Contact:** 9881949305\n- **Guardian:** Scott French\n- **Guardian Contact:**\n\n**11. Gray, Mary**\n- **Student ID:** PDM-2025-000050\n- **Department:** CCS\n- **Contact:** 9285572911\n- **Guardian:** Alicia Cobb\n- **Guardian Contact:**\n\n**12. Hodge, Karen**\n- **Student ID:** PDM-2025-000043\n- **Department:** CCS\n- **Contact:** 9660074696\n- **Guardian:** Sarah Clark\n- **Guardian Contact:**\n\n**13. Hudson, Samantha**\n- **Student ID:** PDM-2025-000046\n- **Department:** CCS\n- **Contact:** 9246072598\n- **Guardian:** Gail Boyer\n- **Guardian Contact:**\n\n**14. Martinez, Maria**\n- **Student ID:** PDM-2025-000033\n- **Department:** CCS\n- **Contact:** 9806732623\n- **Guardian:** Abigail Lawrence\n- **Guardian Contact:**\n\n**15. Miles, David**\n- **Student ID:** PDM-2025-000059\n- **Department:** CCS\n- **Contact:** 9650327898\n- **Guardian:** Debbie Burton\n- **Guardian Contact:**\n\n**16. Miles, Karen**\n- **Student ID:** PDM-2025-000044\n- **Department:** CCS\n- **Contact:** 9551470667\n- **Guardian:** Teresa Jarvis\n- **Guardian Contact:**\n\n**17. Miller, Logan**\n- **Student ID:** PDM-2025-000034\n- **Department:** CCS\n- **Contact:** 9991725464\n- **Guardian:** Terry Schmidt\n- **Guardian Contact:**\n\n**18. Ochoa, Jaime**\n- **Student ID:** PDM-2025-000038\n- **Department:** CCS\n- **Contact:** 9829905736\n- **Guardian:** Rebecca Butler\n- **Guardian Contact:**\n\n**19. Pace, Lee**\n- **Student ID:** PDM-2025-000037\n- **Department:** CCS\n- **Contact:** 9948747224\n- **Guardian:** Jaime Fields\n- **Guardian Contact:**\n\n**20. Palmer, Brian**\n- **Student ID:** PDM-2025-000058\n- **Department:** CCS\n- **Contact:** 9589836425\n- **Guardian:** Kathy Hunt\n- **Guardian Contact:**\n\n**21. Richard, Jackie**\n- **Student ID:** PDM-2025-000055\n- **Department:** CCS\n- **Contact:** 9592971387\n- **Guardian:** Kristina Garner\n- **Guardian Contact:**\n\n**22. Roberts, Steven**\n- **Student ID:** PDM-2025-000057\n- **Department:** CCS\n- **Contact:** 9619121737\n- **Guardian:** Craig Callahan\n- **Guardian Contact:**\n\n**23. Ruiz, Erin**\n- **Student ID:** PDM-2025-000032\n- **Department:** CCS\n- **Contact:** 9263602462\n- **Guardian:** Crystal Johnson\n- **Guardian Contact:**\n\n**24. Stone, Rebecca**\n- **Student ID:** PDM-2025-000036\n- **Department:** CCS\n- **Contact:** 9524683884\n- **Guardian:** Kimberly Rodriguez\n- **Guardian Contact:**\n\n**25. Sutton, Christopher**\n- **Student ID:** PDM-2025-000053\n- **Department:** CCS\n- **Contact:** 9064873166\n- **Guardian:** Robert Smith\n- **Guardian Contact:**\n\n**26. Valdez, Elizabeth**\n- **Student ID:** PDM-2025-000048\n- **Department:** CCS\n- **Contact:** 9393149877\n- **Guardian:** Sean Berry\n- **Guardian Contact:**\n\n**27. Walker, John**\n- **Student ID:** PDM-2025-000052\n- **Department:** CCS\n- **Contact:** 9192445008\n- **Guardian:** Wanda Roberts\n- **Guardian Contact:**\n\n**28. Walker, Megan**\n- **Student ID:** PDM-2025-000056\n- **Department:** CCS\n- **Contact:** 9655792439\n- **Guardian:** Marcus Stafford\n- **Guardian Contact:**\n\n**29. White, Rhonda**\n- **Student ID:** PDM-2025-000039\n- **Department:** CCS\n- **Contact:** 9486019579\n- **Guardian:** Heather Davis\n- **Guardian Contact:**\n\n**30. Williams, Chloe**\n- **Student ID:** PDM-2025-000041\n- **Department:** CCS\n- **Contact:** 9945427450\n- **Guardian:** Anthony Carter\n- **Guardian Contact:**\n\n## BSHM - Year 3 - Section B (20 students)\n\n**1. Andrea Davis**\n- **Student ID:** PDM-2025-000660\n- **Department:** CHTM\n- **Contact:** 9400311508\n- **Guardian:** Monica Thomas\n- **Guardian Contact:**\n\n**2. Cesar Ruiz**\n- **Student ID:** PDM-2025-000652\n- **Department:** CHTM\n- **Contact:** 9927444491\n- **Guardian:** Alyssa Simon\n- **Guardian Contact:**\n\n**3. David Mayer**\n- **Student ID:** PDM-2025-000656\n- **Department:** CHTM\n- **Contact:** 9286097773\n- **Guardian:** Crystal Coleman\n- **Guardian Contact:**\n\n**4. Dennis Walsh**\n- **Student ID:** PDM-2025-000657\n- **Department:** CHTM\n- **Contact:** 9311017068\n- **Guardian:** Jennifer Bryant\n- **Guardian Contact:**\n\n**5. Gregory Arnold**\n- **Student ID:** PDM-2025-000670\n- **Department:** CHTM\n- **Contact:** 9507061879\n- **Guardian:** Wayne Briggs\n- **Guardian Contact:**\n\n**6. Jared Escobar**\n- **Student ID:** PDM-2025-000651\n- **Department:** CHTM\n- **Contact:** 9153564607\n- **Guardian:** Mrs. Christina Moore\n- **Guardian Contact:**\n\n**7. Jesse Conway**\n- **Student ID:** PDM-2025-000659\n- **Department:** CHTM\n- **Contact:** 9684468939\n- **Guardian:** Lindsay Jones\n- **Guardian Contact:**\n\n**8. Karen Edwards**\n- **Student ID:** PDM-2025-000663\n- **Department:** CHTM\n- **Contact:** 9839833287\n- **Guardian:** Jonathan Sanchez\n- **Guardian Contact:**\n\n**9. Katherine Stewart**\n- **Student ID:** PDM-2025-000664\n- **Department:** CHTM\n- **Contact:** 9296163793\n- **Guardian:** Elizabeth Beck\n- **Guardian Contact:**\n\n**10. Mia Matthews**\n- **Student ID:** PDM-2025-000653\n- **Department:** CHTM\n- **Contact:** 9736892982\n- **Guardian:** Kristi Griffith\n- **Guardian Contact:**\n\n**11. Michelle Garza**\n- **Student ID:** PDM-2025-000665\n- **Department:** CHTM\n- **Contact:** 9976285287\n- **Guardian:** Arthur Long\n- **Guardian Contact:**\n\n**12. Molly Bolton**\n- **Student ID:** PDM-2025-000668\n- **Department:** CHTM\n- **Contact:** 9303459375\n- **Guardian:** Mark Espinoza\n- **Guardian Contact:**\n\n**13. Raymond Fields**\n- **Student ID:** PDM-2025-000666\n- **Department:** CHTM\n- **Contact:** 9640093534\n- **Guardian:** Oscar Jones\n- **Guardian Contact:**\n\n**14. Ricardo Lucas**\n- **Student ID:** PDM-2025-000655\n- **Department:** CHTM\n- **Contact:** 9589593908\n- **Guardian:** Miss Kimberly Flores\n- **Guardian Contact:**\n\n**15. Ronnie Cummings**\n- **Student ID:** PDM-2025-000669\n- **Department:** CHTM\n- **Contact:** 9764787234\n- **Guardian:** Danielle Olson\n- **Guardian Contact:**\n\n**16. Stephanie Larsen**\n- **Student ID:** PDM-2025-000667\n- **Department:** CHTM\n- **Contact:** 9976491362\n- **Guardian:** Jean Davis\n- **Guardian Contact:**\n\n**17. Stephanie Moreno**\n- **Student ID:** PDM-2025-000661\n- **Department:** CHTM\n- **Contact:** 9734779567\n- **Guardian:** Sean Cardenas\n- **Guardian Contact:**\n\n**18. Susan Munoz**\n- **Student ID:** PDM-2025-000662\n- **Department:** CHTM\n- **Contact:** 9267797044\n- **Guardian:** Tonya Lambert\n- **Guardian Contact:**\n\n**19. Suzanne Martin**\n- **Student ID:** PDM-2025-000654\n- **Department:** CHTM\n- **Contact:** 9231045520\n- **Guardian:** Brenda Shepard\n- **Guardian Contact:**\n\n**20. Tracy House**\n- **Student ID:** PDM-2025-000658\n- **Department:** CHTM\n- **Contact:** 9503865959\n- **Guardian:** Anthony Allen\n- **Guardian Contact:**\n\n- [system_summary]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "all students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "role": "student",
+                "n_results": 1000
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 79.29514980316162,
+      "timestamp": "2025-10-12T15:39:13.291682",
+      "final_answer": "Here is the complete list of all students:\n\nFound a total of 150 students, organized as follows:\n\n## BSCS - Year 2 - Section A (30 students)\n\n**1. Ali, Charles**\n- **Student ID:** PDM-2025-000049\n- **Department:** CCS\n- **Contact:** 9778669996\n- **Guardian:** Jessica Woodard\n- **Guardian Contact:**\n\n**2. Barnes, Mark**\n- **Student ID:** PDM-2025-000035\n- **Department:** CCS\n- **Contact:** 9295486387\n- **Guardian:** Matthew Colon\n- **Guardian Contact:**\n\n**3. Bridges, Mary**\n- **Student ID:** PDM-2025-000045\n- **Department:** CCS\n- **Contact:** 9707570785\n- **Guardian:** Robert Lopez\n- **Guardian Contact:**\n\n**4. Bright, Ryan**\n- **Student ID:** PDM-2025-000040\n- **Department:** CCS\n- **Contact:** 9750076283\n- **Guardian:** Matthew Chapman\n- **Guardian Contact:**\n\n**5. Brooks, Christina**\n- **Student ID:** PDM-2025-000054\n- **Department:** CCS\n- **Contact:** 9161784194\n- **Guardian:** Susan Hernandez\n- **Guardian Contact:**\n\n**6. Burton, Joe**\n- **Student ID:** PDM-2025-000051\n- **Department:** CCS\n- **Contact:** 9766532627\n- **Guardian:** Patrick Kirk\n- **Guardian Contact:**\n\n**7. Carpenter, Michael**\n- **Student ID:** PDM-2025-000031\n- **Department:** CCS\n- **Contact:** 9211796807\n- **Guardian:** Victor Martin\n- **Guardian Contact:**\n\n**8. Castro, Mary**\n- **Student ID:** PDM-2025-000060\n- **Department:** CCS\n- **Contact:** 9571735838\n- **Guardian:** George Howard\n- **Guardian Contact:**\n\n**9. Clarke, Jacob**\n- **Student ID:** PDM-2025-000042\n- **Department:** CCS\n- **Contact:** 9715968207\n- **Guardian:** Terry Moore\n- **Guardian Contact:**\n\n**10. Cox, Susan**\n- **Student ID:** PDM-2025-000047\n- **Department:** CCS\n- **Contact:** 9881949305\n- **Guardian:** Scott French\n- **Guardian Contact:**\n\n**11. Gray, Mary**\n- **Student ID:** PDM-2025-000050\n- **Department:** CCS\n- **Contact:** 9285572911\n- **Guardian:** Alicia Cobb\n- **Guardian Contact:**\n\n**12. Hodge, Karen**\n- **Student ID:** PDM-2025-000043\n- **Department:** CCS\n- **Contact:** 9660074696\n- **Guardian:** Sarah Clark\n- **Guardian Contact:**\n\n**13. Hudson, Samantha**\n- **Student ID:** PDM-2025-000046\n- **Department:** CCS\n- **Contact:** 9246072598\n- **Guardian:** Gail Boyer\n- **Guardian Contact:**\n\n**14. Martinez, Maria**\n- **Student ID:** PDM-2025-000033\n- **Department:** CCS\n- **Contact:** 9806732623\n- **Guardian:** Abigail Lawrence\n- **Guardian Contact:**\n\n**15. Miles, David**\n- **Student ID:** PDM-2025-000059\n- **Department:** CCS\n- **Contact:** 9650327898\n- **Guardian:** Debbie Burton\n- **Guardian Contact:**\n\n**16. Miles, Karen**\n- **Student ID:** PDM-2025-000044\n- **Department:** CCS\n- **Contact:** 9551470667\n- **Guardian:** Teresa Jarvis\n- **Guardian Contact:**\n\n**17. Miller, Logan**\n- **Student ID:** PDM-2025-000034\n- **Department:** CCS\n- **Contact:** 9991725464\n- **Guardian:** Terry Schmidt\n- **Guardian Contact:**\n\n**18. Ochoa, Jaime**\n- **Student ID:** PDM-2025-000038\n- **Department:** CCS\n- **Contact:** 9829905736\n- **Guardian:** Rebecca Butler\n- **Guardian Contact:**\n\n**19. Pace, Lee**\n- **Student ID:** PDM-2025-000037\n- **Department:** CCS\n- **Contact:** 9948747224\n- **Guardian:** Jaime Fields\n- **Guardian Contact:**\n\n**20. Palmer, Brian**\n- **Student ID:** PDM-2025-000058\n- **Department:** CCS\n- **Contact:** 9589836425\n- **Guardian:** Kathy Hunt\n- **Guardian Contact:**\n\n**21. Richard, Jackie**\n- **Student ID:** PDM-2025-000055\n- **Department:** CCS\n- **Contact:** 9592971387\n- **Guardian:** Kristina Garner\n- **Guardian Contact:**\n\n**22. Roberts, Steven**\n- **Student ID:** PDM-2025-000057\n- **Department:** CCS\n- **Contact:** 9619121737\n- **Guardian:** Craig Callahan\n- **Guardian Contact:**\n\n**23. Ruiz, Erin**\n- **Student ID:** PDM-2025-000032\n- **Department:** CCS\n- **Contact:** 9263602462\n- **Guardian:** Crystal Johnson\n- **Guardian Contact:**\n\n**24. Stone, Rebecca**\n- **Student ID:** PDM-2025-000036\n- **Department:** CCS\n- **Contact:** 9524683884\n- **Guardian:** Kimberly Rodriguez\n- **Guardian Contact:**\n\n**25. Sutton, Christopher**\n- **Student ID:** PDM-2025-000053\n- **Department:** CCS\n- **Contact:** 9064873166\n- **Guardian:** Robert Smith\n- **Guardian Contact:**\n\n**26. Valdez, Elizabeth**\n- **Student ID:** PDM-2025-000048\n- **Department:** CCS\n- **Contact:** 9393149877\n- **Guardian:** Sean Berry\n- **Guardian Contact:**\n\n**27. Walker, John**\n- **Student ID:** PDM-2025-000052\n- **Department:** CCS\n- **Contact:** 9192445008\n- **Guardian:** Wanda Roberts\n- **Guardian Contact:**\n\n**28. Walker, Megan**\n- **Student ID:** PDM-2025-000056\n- **Department:** CCS\n- **Contact:** 9655792439\n- **Guardian:** Marcus Stafford\n- **Guardian Contact:**\n\n**29. White, Rhonda**\n- **Student ID:** PDM-2025-000039\n- **Department:** CCS\n- **Contact:** 9486019579\n- **Guardian:** Heather Davis\n- **Guardian Contact:**\n\n**30. Williams, Chloe**\n- **Student ID:** PDM-2025-000041\n- **Department:** CCS\n- **Contact:** 9945427450\n- **Guardian:** Anthony Carter\n- **Guardian Contact:**\n\n## BSHM - Year 3 - Section B (30 students)\n\n**1. Andrea Davis**\n- **Student ID:** PDM-2025-000660\n- **Department:** CHTM\n- **Contact:** 9400311508\n- **Guardian:** Monica Thomas\n- **Guardian Contact:**\n\n**2. Calvin Hayes**\n- **Student ID:** PDM-2025-000680\n- **Department:** CHTM\n- **Contact:** 9147600135\n- **Guardian:** Taylor Hogan\n- **Guardian Contact:**\n\n**3. Cesar Ruiz**\n- **Student ID:** PDM-2025-000652\n- **Department:** CHTM\n- **Contact:** 9927444491\n- **Guardian:** Alyssa Simon\n- **Guardian Contact:**\n\n**4. Christopher Dunn**\n- **Student ID:** PDM-2025-000676\n- **Department:** CHTM\n- **Contact:** 9763648460\n- **Guardian:** Linda Wilkins\n- **Guardian Contact:**\n\n**5. David Mayer**\n- **Student ID:** PDM-2025-000656\n- **Department:** CHTM\n- **Contact:** 9286097773\n- **Guardian:** Crystal Coleman\n- **Guardian Contact:**\n\n**6. Dennis Walsh**\n- **Student ID:** PDM-2025-000657\n- **Department:** CHTM\n- **Contact:** 9311017068\n- **Guardian:** Jennifer Bryant\n- **Guardian Contact:**\n\n**7. Elizabeth Bennett Dvm**\n- **Student ID:** PDM-2025-000674\n- **Department:** CHTM\n- **Contact:** 9332082206\n- **Guardian:** Melanie Harris\n- **Guardian Contact:**\n\n**8. Gregory Arnold**\n- **Student ID:** PDM-2025-000670\n- **Department:** CHTM\n- **Contact:** 9507061879\n- **Guardian:** Wayne Briggs\n- **Guardian Contact:**\n\n**9. Jared Escobar**\n- **Student ID:** PDM-2025-000651\n- **Department:** CHTM\n- **Contact:** 9153564607\n- **Guardian:** Mrs. Christina Moore\n- **Guardian Contact:**\n\n**10. Jeffrey Smith**\n- **Student ID:** PDM-2025-000675\n- **Department:** CHTM\n- **Contact:** 9908912908\n- **Guardian:** John Schwartz\n- **Guardian Contact:**\n\n**11. Jesse Conway**\n- **Student ID:** PDM-2025-000659\n- **Department:** CHTM\n- **Contact:** 9684468939\n- **Guardian:** Lindsay Jones\n- **Guardian Contact:**\n\n**12. Karen Edwards**\n- **Student ID:** PDM-2025-000663\n- **Department:** CHTM\n- **Contact:** 9839833287\n- **Guardian:** Jonathan Sanchez\n- **Guardian Contact:**\n\n**13. Katherine Stewart**\n- **Student ID:** PDM-2025-000664\n- **Department:** CHTM\n- **Contact:** 9296163793\n- **Guardian:** Elizabeth Beck\n- **Guardian Contact:**\n\n**14. Kimberly Lloyd**\n- **Student ID:** PDM-2025-000671\n- **Department:** CHTM\n- **Contact:** 9292724691\n- **Guardian:** Noah Forbes\n- **Guardian Contact:**\n\n**15. Kyle Mendoza**\n- **Student ID:** PDM-2025-000679\n- **Department:** CHTM\n- **Contact:** 9464754744\n- **Guardian:** Gary Livingston\n- **Guardian Contact:**\n\n**16. Laura Stephens**\n- **Student ID:** PDM-2025-000672\n- **Department:** CHTM\n- **Contact:** 9692548223\n- **Guardian:** Anna Hall\n- **Guardian Contact:**\n\n**17. Mia Matthews**\n- **Student ID:** PDM-2025-000653\n- **Department:** CHTM\n- **Contact:** 9736892982\n- **Guardian:** Kristi Griffith\n- **Guardian Contact:**\n\n**18. Michael Russell**\n- **Student ID:** PDM-2025-000678\n- **Department:** CHTM\n- **Contact:** 9210633754\n- **Guardian:** Jennifer Hart\n- **Guardian Contact:**\n\n**19. Michelle Garza**\n- **Student ID:** PDM-2025-000665\n- **Department:** CHTM\n- **Contact:** 9976285287\n- **Guardian:** Arthur Long\n- **Guardian Contact:**\n\n**20. Molly Bolton**\n- **Student ID:** PDM-2025-000668\n- **Department:** CHTM\n- **Contact:** 9303459375\n- **Guardian:** Mark Espinoza\n- **Guardian Contact:**\n\n**21. Patrick Carpenter**\n- **Student ID:** PDM-2025-000673\n- **Department:** CHTM\n- **Contact:** 9193657876\n- **Guardian:** Lisa Robinson\n- **Guardian Contact:**\n\n**22. Raymond Fields**\n- **Student ID:** PDM-2025-000666\n- **Department:** CHTM\n- **Contact:** 9640093534\n- **Guardian:** Oscar Jones\n- **Guardian Contact:**\n\n**23. Ricardo Lucas**\n- **Student ID:** PDM-2025-000655\n- **Department:** CHTM\n- **Contact:** 9589593908\n- **Guardian:** Miss Kimberly Flores\n- **Guardian Contact:**\n\n**24. Ronnie Cummings**\n- **Student ID:** PDM-2025-000669\n- **Department:** CHTM\n- **Contact:** 9764787234\n- **Guardian:** Danielle Olson\n- **Guardian Contact:**\n\n**25. Stephanie Larsen**\n- **Student ID:** PDM-2025-000667\n- **Department:** CHTM\n- **Contact:** 9976491362\n- **Guardian:** Jean Davis\n- **Guardian Contact:**\n\n**26. Stephanie Moreno**\n- **Student ID:** PDM-2025-000661\n- **Department:** CHTM\n- **Contact:** 9734779567\n- **Guardian:** Sean Cardenas\n- **Guardian Contact:**\n\n**27. Susan Munoz**\n- **Student ID:** PDM-2025-000662\n- **Department:** CHTM\n- **Contact:** 9267797044\n- **Guardian:** Tonya Lambert\n- **Guardian Contact:**\n\n**28. Suzanne Martin**\n- **Student ID:** PDM-2025-000654\n- **Department:** CHTM\n- **Contact:** 9231045520\n- **Guardian:** Brenda Shepard\n- **Guardian Contact:**\n\n**29. Tammy Brown**\n- **Student ID:** PDM-2025-000677\n- **Department:** CHTM\n- **Contact:** 9117595007\n- **Guardian:** James Ortega\n- **Guardian Contact:**\n\n**30. Tracy House**\n- **Student ID:** PDM-2025-000658\n- **Department:** CHTM\n- **Contact:** 9503865959\n- **Guardian:** Anthony Allen\n- **Guardian Contact:**\n\n## BSIT - Year 1 - Section A (30 students)\n\n**1. Ana Bautista**\n- **Student ID:** PDM-2025-001341\n- **Department:** CCS\n- **Contact:** 9576403909\n- **Guardian:** Carmen Bautista\n- **Guardian Contact:**\n\n**2. Ana Flores**\n- **Student ID:** PDM-2025-001363\n- **Department:** CCS\n- **Contact:** 9380184337\n- **Guardian:** Teresa Santos\n- **Guardian Contact:**\n\n**3. Angela Garcia**\n- **Student ID:** PDM-2025-001338\n- **Department:** CCS\n- **Contact:** 9272973348\n- **Guardian:** Ramon Torres\n- **Guardian Contact:**\n\n**4. Angela Ramos**\n- **Student ID:** PDM-2025-001337\n- **Department:** CCS\n- **Contact:** 9531374565\n- **Guardian:** Daniel Villanueva\n- **Guardian Contact:**\n\n**5. Carlo Flores**\n- **Student ID:** PDM-2025-001350\n- **Department:** CCS\n- **Contact:** 9600835895\n- **Guardian:** Roberto Mendoza\n- **Guardian Contact:**\n\n**6. Carlo Santos**\n- **Student ID:** PDM-2025-001356\n- **Department:** CCS\n- **Contact:** 9023904269\n- **Guardian:** Fernando Garcia\n- **Guardian Contact:**\n\n**7. Carlo Villanueva**\n- **Student ID:** PDM-2025-001340\n- **Department:** CCS\n- **Contact:** 9406528266\n- **Guardian:** Ramon Reyes\n- **Guardian Contact:**\n\n**8. Catherine Castro**\n- **Student ID:** PDM-2025-001346\n- **Department:** CCS\n- **Contact:** 9427806207\n- **Guardian:** Gloria Castro\n- **Guardian Contact:**\n\n**9. Catherine Castro**\n- **Student ID:** PDM-2025-001349\n- **Department:** CCS\n- **Contact:** 9504734177\n- **Guardian:** Alberto Mendoza\n- **Guardian Contact:**\n\n**10. Catherine Santos**\n- **Student ID:** PDM-2025-001336\n- **Department:** CCS\n- **Contact:** 9142413168\n- **Guardian:** Roberto Flores\n- **Guardian Contact:**\n\n**11. Catherine Torres**\n- **Student ID:** PDM-2025-001343\n- **Department:** CCS\n- **Contact:** 9035474266\n- **Guardian:** Roberto Castro\n- **Guardian Contact:**\n\n**12. Elena Cruz**\n- **Student ID:** PDM-2025-001361\n- **Department:** CCS\n- **Contact:** 9449860210\n- **Guardian:** Patricia Flores\n- **Guardian Contact:**\n\n**13. Elena Torres**\n- **Student ID:** PDM-2025-001360\n- **Department:** CCS\n- **Contact:** 9718018363\n- **Guardian:** Teresa Villanueva\n- **Guardian Contact:**\n\n**14. Jose Ramos**\n- **Student ID:** PDM-2025-001339\n- **Department:** CCS\n- **Contact:** 9320256688\n- **Guardian:** Patricia Cruz\n- **Guardian Contact:**\n\n**15. Juan Castro**\n- **Student ID:** PDM-2025-001347\n- **Department:** CCS\n- **Contact:** 9868342721\n- **Guardian:** Patricia Santos\n- **Guardian Contact:**\n\n**16. Juan Villanueva**\n- **Student ID:** PDM-2025-001352\n- **Department:** CCS\n- **Contact:** 9623868338\n- **Guardian:** Antonio Torres\n- **Guardian Contact:**\n\n**17. Maria Bautista**\n- **Student ID:** PDM-2025-001358\n- **Department:** CCS\n- **Contact:** 9271512129\n- **Guardian:** Teresa Ramos\n- **Guardian Contact:**\n\n**18. Maria Ramos**\n- **Student ID:** PDM-2025-001364\n- **Department:** CCS\n- **Contact:** 9283861630\n- **Guardian:** Roberto Santos\n- **Guardian Contact:**\n\n**19. Maria Villanueva**\n- **Student ID:** PDM-2025-001348\n- **Department:** CCS\n- **Contact:** 9689877414\n- **Guardian:** Roberto Ramos\n- **Guardian Contact:**\n\n**20. Mark Bautista**\n- **Student ID:** PDM-2025-001355\n- **Department:** CCS\n- **Contact:** 9681502410\n- **Guardian:** Daniel Reyes\n- **Guardian Contact:**\n\n**21. Mark Garcia**\n- **Student ID:** PDM-2025-001354\n- **Department:** CCS\n- **Contact:** 9614411509\n- **Guardian:** Roberto Cruz\n- **Guardian Contact:**\n\n**22. Mark Mendoza**\n- **Student ID:** PDM-2025-001357\n- **Department:** CCS\n- **Contact:** 9711320301\n- **Guardian:** Lucia Santos\n- **Guardian Contact:**\n\n**23. Miguel Flores**\n- **Student ID:** PDM-2025-001351\n- **Department:** CCS\n- **Contact:** 9148789591\n- **Guardian:** Fernando Cruz\n- **Guardian Contact:**\n\n**24. Miguel Reyes**\n- **Student ID:** PDM-2025-001345\n- **Department:** CCS\n- **Contact:** 9204527087\n- **Guardian:** Antonio Ramos\n- **Guardian Contact:**\n\n**25. Miguel Santos**\n- **Student ID:** PDM-2025-001365\n- **Department:** CCS\n- **Contact:** 9858976615\n- **Guardian:** Roberto Garcia\n- **Guardian Contact:**\n\n**26. Paolo Torres**\n- **Student ID:** PDM-2025-001359\n- **Department:** CCS\n- **Contact:** 9516120757\n- **Guardian:** Alberto Flores\n- **Guardian Contact:**\n\n**27. Pedro Torres**\n- **Student ID:** PDM-2025-001342\n- **Department:** CCS\n- **Contact:** 9214931682\n- **Guardian:** Roberto Garcia\n- **Guardian Contact:**\n\n**28. Rosa Bautista**\n- **Student ID:** PDM-2025-001362\n- **Department:** CCS\n- **Contact:** 9595330808\n- **Guardian:** Patricia Bautista\n- **Guardian Contact:**\n\n**29. Sophia Reyes**\n- **Student ID:** PDM-2025-001344\n- **Department:** CCS\n- **Contact:** 9733675499\n- **Guardian:** Antonio Flores\n- **Guardian Contact:**\n\n**30. Sophia Reyes**\n- **Student ID:** PDM-2025-001353\n- **Department:** CCS\n- **Contact:** 9017332158\n- **Guardian:** Antonio Torres\n- **Guardian Contact:**\n\n## BSIT - Year 4 - Section A (30 students)\n\n**1. Ana Bautista**\n- **Student ID:** PDM-2025-001436\n- **Department:** CCS\n- **Contact:** 9706302451\n- **Guardian:** Carmen Villanueva\n- **Guardian Contact:**\n\n**2. Angela Castro**\n- **Student ID:** PDM-2025-001441\n- **Department:** CCS\n- **Contact:** 9287853045\n- **Guardian:** Alberto Reyes\n- **Guardian Contact:**\n\n**3. Angela Cruz**\n- **Student ID:** PDM-2025-001453\n- **Department:** CCS\n- **Contact:** 9416863321\n- **Guardian:** Ramon Ramos\n- **Guardian Contact:**\n\n**4. Carlo Aquino**\n- **Student ID:** PDM-2025-001431\n- **Department:** CCS\n- **Contact:** 9301086867\n- **Guardian:** Alberto Garcia\n- **Guardian Contact:**\n\n**5. Catherine Aquino**\n- **Student ID:** PDM-2025-001440\n- **Department:** CCS\n- **Contact:** 9961714780\n- **Guardian:** Isabel Santos\n- **Guardian Contact:**\n\n**6. Catherine Mendoza**\n- **Student ID:** PDM-2025-001446\n- **Department:** CCS\n- **Contact:** 9702730583\n- **Guardian:** Alberto Mendoza\n- **Guardian Contact:**\n\n**7. Catherine Mendoza**\n- **Student ID:** PDM-2025-001451\n- **Department:** CCS\n- **Contact:** 9997206274\n- **Guardian:** Gloria Bautista\n- **Guardian Contact:**\n\n**8. Catherine Santos**\n- **Student ID:** PDM-2025-001454\n- **Department:** CCS\n- **Contact:** 9521850929\n- **Guardian:** Fernando Ramos\n- **Guardian Contact:**\n\n**9. Elena Mendoza**\n- **Student ID:** PDM-2025-001426\n- **Department:** CCS\n- **Contact:** 9454229596\n- **Guardian:** Fernando Torres\n- **Guardian Contact:**\n\n**10. Elena Villanueva**\n- **Student ID:** PDM-2025-001439\n- **Department:** CCS\n- **Contact:** 9225184276\n- **Guardian:** Gloria Ramos\n- **Guardian Contact:**\n\n**11. Jose Cruz**\n- **Student ID:** PDM-2025-001430\n- **Department:** CCS\n- **Contact:** 9294286119\n- **Guardian:** Ramon Cruz\n- **Guardian Contact:**\n\n**12. Jose Cruz**\n- **Student ID:** PDM-2025-001442\n- **Department:** CCS\n- **Contact:** 9588451905\n- **Guardian:** Alberto Castro\n- **Guardian Contact:**\n\n**13. Jose Garcia**\n- **Student ID:** PDM-2025-001450\n- **Department:** CCS\n- **Contact:** 9049316548\n- **Guardian:** Roberto Bautista\n- **Guardian Contact:**\n\n**14. Jose Torres**\n- **Student ID:** PDM-2025-001452\n- **Department:** CCS\n- **Contact:** 9351518757\n- **Guardian:** Antonio Cruz\n- **Guardian Contact:**\n\n**15. Juan Castro**\n- **Student ID:** PDM-2025-001428\n- **Department:** CCS\n- **Contact:** 9155340702\n- **Guardian:** Lucia Garcia\n- **Guardian Contact:**\n\n**16. Juan Ramos**\n- **Student ID:** PDM-2025-001445\n- **Department:** CCS\n- **Contact:** 9274724036\n- **Guardian:** Teresa Aquino\n- **Guardian Contact:**\n\n**17. Juan Torres**\n- **Student ID:** PDM-2025-001449\n- **Department:** CCS\n- **Contact:** 9339304384\n- **Guardian:** Alberto Torres\n- **Guardian Contact:**\n\n**18. Maria Flores**\n- **Student ID:** PDM-2025-001429\n- **Department:** CCS\n- **Contact:** 9690893519\n- **Guardian:** Ramon Cruz\n- **Guardian Contact:**\n\n**19. Maria Mendoza**\n- **Student ID:** PDM-2025-001447\n- **Department:** CCS\n- **Contact:** 9614729333\n- **Guardian:** Daniel Garcia\n- **Guardian Contact:**\n\n**20. Mark Castro**\n- **Student ID:** PDM-2025-001448\n- **Department:** CCS\n- **Contact:** 9674243201\n- **Guardian:** Alberto Cruz\n- **Guardian Contact:**\n\n**21. Miguel Bautista**\n- **Student ID:** PDM-2025-001444\n- **Department:** CCS\n- **Contact:** 9643538221\n- **Guardian:** Antonio Cruz\n- **Guardian Contact:**\n\n**22. Miguel Castro**\n- **Student ID:** PDM-2025-001443\n- **Department:** CCS\n- **Contact:** 9651962981\n- **Guardian:** Antonio Garcia\n- **Guardian Contact:**\n\n**23. Paolo Bautista**\n- **Student ID:** PDM-2025-001433\n- **Department:** CCS\n- **Contact:** 9396906435\n- **Guardian:** Antonio Mendoza\n- **Guardian Contact:**\n\n**24. Paolo Garcia**\n- **Student ID:** PDM-2025-001435\n- **Department:** CCS\n- **Contact:** 9859658662\n- **Guardian:** Roberto Aquino\n- **Guardian Contact:**\n\n**25. Rosa Bautista**\n- **Student ID:** PDM-2025-001438\n- **Department:** CCS\n- **Contact:** 9819844480\n- **Guardian:** Roberto Aquino\n- **Guardian Contact:**\n\n**26. Rosa Cruz**\n- **Student ID:** PDM-2025-001427\n- **Department:** CCS\n- **Contact:** 9431732329\n- **Guardian:** Isabel Ramos\n- **Guardian Contact:**\n\n**27. Sophia Mendoza**\n- **Student ID:** PDM-2025-001437\n- **Department:** CCS\n- **Contact:** 9011568719\n- **Guardian:** Fernando Mendoza\n- **Guardian Contact:**\n\n**28. Sophia Ramos**\n- **Student ID:** PDM-2025-001455\n- **Department:** CCS\n- **Contact:** 9616360863\n- **Guardian:** Isabel Garcia\n- **Guardian Contact:**\n\n**29. Sophia Torres**\n- **Student ID:** PDM-2025-001432\n- **Department:** CCS\n- **Contact:** 9459311952\n- **Guardian:** Carmen Mendoza\n- **Guardian Contact:**\n\n**30. Victor Torres**\n- **Student ID:** PDM-2025-001434\n- **Department:** CCS\n- **Contact:** 9034739295\n- **Guardian:** Lucia Mendoza\n- **Guardian Contact:**\n\n## BSOA - Year 3 - Section A (30 students)\n\n**1. Adam Mcdaniel**\n- **Student ID:** PDM-2025-000865\n- **Department:** CBA\n- **Contact:** 9317106756\n- **Guardian:** Christian Allen\n- **Guardian Contact:**\n\n**2. Alexander Henry**\n- **Student ID:** PDM-2025-000860\n- **Department:** CBA\n- **Contact:** 9824912341\n- **Guardian:** Terri Taylor\n- **Guardian Contact:**\n\n**3. Amanda Page**\n- **Student ID:** PDM-2025-000884\n- **Department:** CBA\n- **Contact:** 9431151007\n- **Guardian:** Shawn Barron\n- **Guardian Contact:**\n\n**4. Antonio Lawson**\n- **Student ID:** PDM-2025-000873\n- **Department:** CBA\n- **Contact:** 9743337707\n- **Guardian:** Jennifer Rodriguez\n- **Guardian Contact:**\n\n**5. Antonio Romero Md**\n- **Student ID:** PDM-2025-000869\n- **Department:** CBA\n- **Contact:** 9573278366\n- **Guardian:** Russell Gonzalez\n- **Guardian Contact:**\n\n**6. Beth Perkins**\n- **Student ID:** PDM-2025-000864\n- **Department:** CBA\n- **Contact:** 9285080871\n- **Guardian:** Anne Banks\n- **Guardian Contact:**\n\n**7. Cristina Brown**\n- **Student ID:** PDM-2025-000856\n- **Department:** CBA\n- **Contact:** 9412460108\n- **Guardian:** Tony Foster\n- **Guardian Contact:**\n\n**8. Cynthia Marks Dvm**\n- **Student ID:** PDM-2025-000866\n- **Department:** CBA\n- **Contact:** 9958929451\n- **Guardian:** Ricardo Schultz\n- **Guardian Contact:**\n\n**9. Dana Kane**\n- **Student ID:** PDM-2025-000858\n- **Department:** CBA\n- **Contact:** 9638375400\n- **Guardian:** Laura Alvarez\n- **Guardian Contact:**\n\n**10. Daniel Martin**\n- **Student ID:** PDM-2025-000883\n- **Department:** CBA\n- **Contact:** 9233820945\n- **Guardian:** Nicholas Stein\n- **Guardian Contact:**\n\n**11. David Chase**\n- **Student ID:** PDM-2025-000870\n- **Department:** CBA\n- **Contact:** 9795206142\n- **Guardian:** Lori Lang Md\n- **Guardian Contact:**\n\n**12. Dean Nguyen**\n- **Student ID:** PDM-2025-000861\n- **Department:** CBA\n- **Contact:** 9759373928\n- **Guardian:** Jeanette Sanchez\n- **Guardian Contact:**\n\n**13. Donald Warner**\n- **Student ID:** PDM-2025-000876\n- **Department:** CBA\n- **Contact:** 9271070739\n- **Guardian:** Paul Walker\n- **Guardian Contact:**\n\n**14. Douglas Brown**\n- **Student ID:** PDM-2025-000882\n- **Department:** CBA\n- **Contact:** 9299073658\n- **Guardian:** Paul Zimmerman\n- **Guardian Contact:**\n\n**15. Drew Jones**\n- **Student ID:** PDM-2025-000874\n- **Department:** CBA\n- **Contact:** 9450862694\n- **Guardian:** Michael Lane\n- **Guardian Contact:**\n\n**16. Frank Brock**\n- **Student ID:** PDM-2025-000863\n- **Department:** CBA\n- **Contact:** 9141598155\n- **Guardian:** Jordan Ferguson\n- **Guardian Contact:**\n\n**17. Jennifer Wilkinson**\n- **Student ID:** PDM-2025-000867\n- **Department:** CBA\n- **Contact:** 9279720643\n- **Guardian:** Heather Leon\n- **Guardian Contact:**\n\n**18. Jordan Washington**\n- **Student ID:** PDM-2025-000878\n- **Department:** CBA\n- **Contact:** 9939783590\n- **Guardian:** Terri Wolf\n- **Guardian Contact:**\n\n**19. Kirk Nguyen**\n- **Student ID:** PDM-2025-000881\n- **Department:** CBA\n- **Contact:** 9960676803\n- **Guardian:** Julie Fisher\n- **Guardian Contact:**\n\n**20. Kristin Bennett**\n- **Student ID:** PDM-2025-000872\n- **Department:** CBA\n- **Contact:** 9157882065\n- **Guardian:** Kristen Williams\n- **Guardian Contact:**\n\n**21. Laura Larson**\n- **Student ID:** PDM-2025-000871\n- **Department:** CBA\n- **Contact:** 9566645822\n- **Guardian:** Sean Phillips\n- **Guardian Contact:**\n\n**22. Mary Stone**\n- **Student ID:** PDM-2025-000879\n- **Department:** CBA\n- **Contact:** 9387291522\n- **Guardian:** John Pierce\n- **Guardian Contact:**\n\n**23. Michelle Barker**\n- **Student ID:** PDM-2025-000857\n- **Department:** CBA\n- **Contact:** 9526253370\n- **Guardian:** Stephen Hart\n- **Guardian Contact:**\n\n**24. Regina Luna**\n- **Student ID:** PDM-2025-000880\n- **Department:** CBA\n- **Contact:** 9348008530\n- **Guardian:** Stephanie Dalton\n- **Guardian Contact:**\n\n**25. Sarah Moore**\n- **Student ID:** PDM-2025-000859\n- **Department:** CBA\n- **Contact:** 9768071737\n- **Guardian:** Alan Young\n- **Guardian Contact:**\n\n**26. Seth Harrison**\n- **Student ID:** PDM-2025-000868\n- **Department:** CBA\n- **Contact:** 9668414052\n- **Guardian:** Jason Smith\n- **Guardian Contact:**\n\n**27. Steven Moore**\n- **Student ID:** PDM-2025-000875\n- **Department:** CBA\n- **Contact:** 9363174890\n- **Guardian:** Sheryl Rocha\n- **Guardian Contact:**\n\n**28. Susan Evans**\n- **Student ID:** PDM-2025-000862\n- **Department:** CBA\n- **Contact:** 9597909186\n- **Guardian:** Jordan Maxwell\n- **Guardian Contact:**\n\n**29. Victor Grimes**\n- **Student ID:** PDM-2025-000885\n- **Department:** CBA\n- **Contact:** 9159840779\n- **Guardian:** Jared Campbell\n- **Guardian Contact:**\n\n**30. Whitney Wright**\n- **Student ID:** PDM-2025-000877\n- **Department:** CBA\n- **Contact:** 9239216739\n- **Guardian:** Kristina Vang\n- **Guardian Contact:**\n\n- [system_summary]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "all bscs students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "program": "BSCS",
+                "role": "student",
+                "n_results": 1000
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 18.655434370040894,
+      "timestamp": "2025-10-12T15:59:46.791419",
+      "final_answer": "Here is the complete list of all BSCS students:\n\nFound a total of 30 students, organized as follows:\n\n## BSCS - Year 2 - Section A (30 students)\n\n**1. Ali, Charles**\n- **Student ID:** PDM-2025-000049\n- **Department:** CCS\n- **Contact:** 9778669996\n- **Guardian:** Jessica Woodard\n- **Guardian Contact:**\n\n**2. Barnes, Mark**\n- **Student ID:** PDM-2025-000035\n- **Department:** CCS\n- **Contact:** 9295486387\n- **Guardian:** Matthew Colon\n- **Guardian Contact:**\n\n**3. Bridges, Mary**\n- **Student ID:** PDM-2025-000045\n- **Department:** CCS\n- **Contact:** 9707570785\n- **Guardian:** Robert Lopez\n- **Guardian Contact:**\n\n**4. Bright, Ryan**\n- **Student ID:** PDM-2025-000040\n- **Department:** CCS\n- **Contact:** 9750076283\n- **Guardian:** Matthew Chapman\n- **Guardian Contact:**\n\n**5. Brooks, Christina**\n- **Student ID:** PDM-2025-000054\n- **Department:** CCS\n- **Contact:** 9161784194\n- **Guardian:** Susan Hernandez\n- **Guardian Contact:**\n\n**6. Burton, Joe**\n- **Student ID:** PDM-2025-000051\n- **Department:** CCS\n- **Contact:** 9766532627\n- **Guardian:** Patrick Kirk\n- **Guardian Contact:**\n\n**7. Carpenter, Michael**\n- **Student ID:** PDM-2025-000031\n- **Department:** CCS\n- **Contact:** 9211796807\n- **Guardian:** Victor Martin\n- **Guardian Contact:**\n\n**8. Castro, Mary**\n- **Student ID:** PDM-2025-000060\n- **Department:** CCS\n- **Contact:** 9571735838\n- **Guardian:** George Howard\n- **Guardian Contact:**\n\n**9. Clarke, Jacob**\n- **Student ID:** PDM-2025-000042\n- **Department:** CCS\n- **Contact:** 9715968207\n- **Guardian:** Terry Moore\n- **Guardian Contact:**\n\n**10. Cox, Susan**\n- **Student ID:** PDM-2025-000047\n- **Department:** CCS\n- **Contact:** 9881949305\n- **Guardian:** Scott French\n- **Guardian Contact:**\n\n**11. Gray, Mary**\n- **Student ID:** PDM-2025-000050\n- **Department:** CCS\n- **Contact:** 9285572911\n- **Guardian:** Alicia Cobb\n- **Guardian Contact:**\n\n**12. Hodge, Karen**\n- **Student ID:** PDM-2025-000043\n- **Department:** CCS\n- **Contact:** 9660074696\n- **Guardian:** Sarah Clark\n- **Guardian Contact:**\n\n**13. Hudson, Samantha**\n- **Student ID:** PDM-2025-000046\n- **Department:** CCS\n- **Contact:** 9246072598\n- **Guardian:** Gail Boyer\n- **Guardian Contact:**\n\n**14. Martinez, Maria**\n- **Student ID:** PDM-2025-000033\n- **Department:** CCS\n- **Contact:** 9806732623\n- **Guardian:** Abigail Lawrence\n- **Guardian Contact:**\n\n**15. Miles, David**\n- **Student ID:** PDM-2025-000059\n- **Department:** CCS\n- **Contact:** 9650327898\n- **Guardian:** Debbie Burton\n- **Guardian Contact:**\n\n**16. Miles, Karen**\n- **Student ID:** PDM-2025-000044\n- **Department:** CCS\n- **Contact:** 9551470667\n- **Guardian:** Teresa Jarvis\n- **Guardian Contact:**\n\n**17. Miller, Logan**\n- **Student ID:** PDM-2025-000034\n- **Department:** CCS\n- **Contact:** 9991725464\n- **Guardian:** Terry Schmidt\n- **Guardian Contact:**\n\n**18. Ochoa, Jaime**\n- **Student ID:** PDM-2025-000038\n- **Department:** CCS\n- **Contact:** 9829905736\n- **Guardian:** Rebecca Butler\n- **Guardian Contact:**\n\n**19. Pace, Lee**\n- **Student ID:** PDM-2025-000037\n- **Department:** CCS\n- **Contact:** 9948747224\n- **Guardian:** Jaime Fields\n- **Guardian Contact:**\n\n**20. Palmer, Brian**\n- **Student ID:** PDM-2025-000058\n- **Department:** CCS\n- **Contact:** 9589836425\n- **Guardian:** Kathy Hunt\n- **Guardian Contact:**\n\n**21. Richard, Jackie**\n- **Student ID:** PDM-2025-000055\n- **Department:** CCS\n- **Contact:** 9592971387\n- **Guardian:** Kristina Garner\n- **Guardian Contact:**\n\n**22. Roberts, Steven**\n- **Student ID:** PDM-2025-000057\n- **Department:** CCS\n- **Contact:** 9619121737\n- **Guardian:** Craig Callahan\n- **Guardian Contact:**\n\n**23. Ruiz, Erin**\n- **Student ID:** PDM-2025-000032\n- **Department:** CCS\n- **Contact:** 9263602462\n- **Guardian:** Crystal Johnson\n- **Guardian Contact:**\n\n**24. Stone, Rebecca**\n- **Student ID:** PDM-2025-000036\n- **Department:** CCS\n- **Contact:** 9524683884\n- **Guardian:** Kimberly Rodriguez\n- **Guardian Contact:**\n\n**25. Sutton, Christopher**\n- **Student ID:** PDM-2025-000053\n- **Department:** CCS\n- **Contact:** 9064873166\n- **Guardian:** Robert Smith\n- **Guardian Contact:**\n\n**26. Valdez, Elizabeth**\n- **Student ID:** PDM-2025-000048\n- **Department:** CCS\n- **Contact:** 9393149877\n- **Guardian:** Sean Berry\n- **Guardian Contact:**\n\n**27. Walker, John**\n- **Student ID:** PDM-2025-000052\n- **Department:** CCS\n- **Contact:** 9192445008\n- **Guardian:** Wanda Roberts\n- **Guardian Contact:**\n\n**28. Walker, Megan**\n- **Student ID:** PDM-2025-000056\n- **Department:** CCS\n- **Contact:** 9655792439\n- **Guardian:** Marcus Stafford\n- **Guardian Contact:**\n\n**29. White, Rhonda**\n- **Student ID:** PDM-2025-000039\n- **Department:** CCS\n- **Contact:** 9486019579\n- **Guardian:** Heather Davis\n- **Guardian Contact:**\n\n**30. Williams, Chloe**\n- **Student ID:** PDM-2025-000041\n- **Department:** CCS\n- **Contact:** 9945427450\n- **Guardian:** Anthony Carter\n- **Guardian Contact:**\n\n- [system_summary]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "8",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_data_by_id",
+              "parameters": {
+                "pdm_id": "PDM-2025-000043"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 3.081561326980591,
+      "timestamp": "2025-10-12T16:04:38.014699",
+      "final_answer": "I couldn't find any information related to the number 8 in the provided documents. [students]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "all bscs 2nd year students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "program": "BSCS",
+                "year_level": 2,
+                "n_results": 1000
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 13.068218469619751,
+      "timestamp": "2025-10-12T16:05:02.019571",
+      "final_answer": "Here is the complete list of all BSCS 2nd year students:\n\nFound a total of 30 students, organized as follows:\n\n## BSCS - Year 2 - Section A (30 students)\n\n**1. Ali, Charles**\n- **Student ID:** PDM-2025-000049\n- **Department:** CCS\n- **Contact:** 9778669996\n- **Guardian:** Jessica Woodard\n- **Guardian Contact:**\n\n**2. Barnes, Mark**\n- **Student ID:** PDM-2025-000035\n- **Department:** CCS\n- **Contact:** 9295486387\n- **Guardian:** Matthew Colon\n- **Guardian Contact:**\n\n**3. Bridges, Mary**\n- **Student ID:** PDM-2025-000045\n- **Department:** CCS\n- **Contact:** 9707570785\n- **Guardian:** Robert Lopez\n- **Guardian Contact:**\n\n**4. Bright, Ryan**\n- **Student ID:** PDM-2025-000040\n- **Department:** CCS\n- **Contact:** 9750076283\n- **Guardian:** Matthew Chapman\n- **Guardian Contact:**\n\n**5. Brooks, Christina**\n- **Student ID:** PDM-2025-000054\n- **Department:** CCS\n- **Contact:** 9161784194\n- **Guardian:** Susan Hernandez\n- **Guardian Contact:**\n\n**6. Burton, Joe**\n- **Student ID:** PDM-2025-000051\n- **Department:** CCS\n- **Contact:** 9766532627\n- **Guardian:** Patrick Kirk\n- **Guardian Contact:**\n\n**7. Carpenter, Michael**\n- **Student ID:** PDM-2025-000031\n- **Department:** CCS\n- **Contact:** 9211796807\n- **Guardian:** Victor Martin\n- **Guardian Contact:**\n\n**8. Castro, Mary**\n- **Student ID:** PDM-2025-000060\n- **Department:** CCS\n- **Contact:** 9571735838\n- **Guardian:** George Howard\n- **Guardian Contact:**\n\n**9. Clarke, Jacob**\n- **Student ID:** PDM-2025-000042\n- **Department:** CCS\n- **Contact:** 9715968207\n- **Guardian:** Terry Moore\n- **Guardian Contact:**\n\n**10. Cox, Susan**\n- **Student ID:** PDM-2025-000047\n- **Department:** CCS\n- **Contact:** 9881949305\n- **Guardian:** Scott French\n- **Guardian Contact:**\n\n**11. Gray, Mary**\n- **Student ID:** PDM-2025-000050\n- **Department:** CCS\n- **Contact:** 9285572911\n- **Guardian:** Alicia Cobb\n- **Guardian Contact:**\n\n**12. Hodge, Karen**\n- **Student ID:** PDM-2025-000043\n- **Department:** CCS\n- **Contact:** 9660074696\n- **Guardian:** Sarah Clark\n- **Guardian Contact:**\n\n**13. Hudson, Samantha**\n- **Student ID:** PDM-2025-000046\n- **Department:** CCS\n- **Contact:** 9246072598\n- **Guardian:** Gail Boyer\n- **Guardian Contact:**\n\n**14. Martinez, Maria**\n- **Student ID:** PDM-2025-000033\n- **Department:** CCS\n- **Contact:** 9806732623\n- **Guardian:** Abigail Lawrence\n- **Guardian Contact:**\n\n**15. Miles, David**\n- **Student ID:** PDM-2025-000059\n- **Department:** CCS\n- **Contact:** 9650327898\n- **Guardian:** Debbie Burton\n- **Guardian Contact:**\n\n**16. Miles, Karen**\n- **Student ID:** PDM-2025-000044\n- **Department:** CCS\n- **Contact:** 9551470667\n- **Guardian:** Teresa Jarvis\n- **Guardian Contact:**\n\n**17. Miller, Logan**\n- **Student ID:** PDM-2025-000034\n- **Department:** CCS\n- **Contact:** 9991725464\n- **Guardian:** Terry Schmidt\n- **Guardian Contact:**\n\n**18. Ochoa, Jaime**\n- **Student ID:** PDM-2025-000038\n- **Department:** CCS\n- **Contact:** 9829905736\n- **Guardian:** Rebecca Butler\n- **Guardian Contact:**\n\n**19. Pace, Lee**\n- **Student ID:** PDM-2025-000037\n- **Department:** CCS\n- **Contact:** 9948747224\n- **Guardian:** Jaime Fields\n- **Guardian Contact:**\n\n**20. Palmer, Brian**\n- **Student ID:** PDM-2025-000058\n- **Department:** CCS\n- **Contact:** 9589836425\n- **Guardian:** Kathy Hunt\n- **Guardian Contact:**\n\n**21. Richard, Jackie**\n- **Student ID:** PDM-2025-000055\n- **Department:** CCS\n- **Contact:** 9592971387\n- **Guardian:** Kristina Garner\n- **Guardian Contact:**\n\n**22. Roberts, Steven**\n- **Student ID:** PDM-2025-000057\n- **Department:** CCS\n- **Contact:** 9619121737\n- **Guardian:** Craig Callahan\n- **Guardian Contact:**\n\n**23. Ruiz, Erin**\n- **Student ID:** PDM-2025-000032\n- **Department:** CCS\n- **Contact:** 9263602462\n- **Guardian:** Crystal Johnson\n- **Guardian Contact:**\n\n**24. Stone, Rebecca**\n- **Student ID:** PDM-2025-000036\n- **Department:** CCS\n- **Contact:** 9524683884\n- **Guardian:** Kimberly Rodriguez\n- **Guardian Contact:**\n\n**25. Sutton, Christopher**\n- **Student ID:** PDM-2025-000053\n- **Department:** CCS\n- **Contact:** 9064873166\n- **Guardian:** Robert Smith\n- **Guardian Contact:**\n\n**26. Valdez, Elizabeth**\n- **Student ID:** PDM-2025-000048\n- **Department:** CCS\n- **Contact:** 9393149877\n- **Guardian:** Sean Berry\n- **Guardian Contact:**\n\n**27. Walker, John**\n- **Student ID:** PDM-2025-000052\n- **Department:** CCS\n- **Contact:** 9192445008\n- **Guardian:** Wanda Roberts\n- **Guardian Contact:**\n\n**28. Walker, Megan**\n- **Student ID:** PDM-2025-000056\n- **Department:** CCS\n- **Contact:** 9655792439\n- **Guardian:** Marcus Stafford\n- **Guardian Contact:**\n\n**29. White, Rhonda**\n- **Student ID:** PDM-2025-000039\n- **Department:** CCS\n- **Contact:** 9486019579\n- **Guardian:** Heather Davis\n- **Guardian Contact:**\n\n**30. Williams, Chloe**\n- **Student ID:** PDM-2025-000041\n- **Department:** CCS\n- **Contact:** 9945427450\n- **Guardian:** Anthony Carter\n- **Guardian Contact:**\n\n- [system_summary]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "PDM-2025-000036",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_data_by_id",
+              "parameters": {
+                "pdm_id": "PDM-2025-000036"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 13.06911587715149,
+      "timestamp": "2025-10-12T16:13:16.543486",
+      "final_answer": "Error: Could not connect to the AI service. Details: 400 Client Error: Bad Request for url: https://api.mistral.ai/v1/chat/completions",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "who is rebecca",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "Rebecca"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 3.5525734424591064,
+      "timestamp": "2025-10-12T16:18:44.946684",
+      "final_answer": "Rebecca Stone is a second-year student in the BSCS program at PDM, specifically in Section A of the Computer and Communication Sciences (CCS) department.\n\n- She is enrolled under the student ID PDM-2025-000036.\n- Her contact number is 9524683884.\n- Her guardian is Kimberly Rodriguez.\n- Her profile completion is at 87.5%.\n- [students]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "all bscs 2nd year students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "program": "BSCS",
+                "year_level": 2,
+                "role": "student",
+                "n_results": 1000
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 8.234365701675415,
+      "timestamp": "2025-10-12T16:19:09.853996",
+      "final_answer": "Here is the complete list of all BSCS 2nd year students:\n\nFound a total of 30 students, organized as follows:\n\n## BSCS - Year 2 - Section A (30 students)\n\n**1. Ali, Charles**\n- **Student ID:** PDM-2025-000049\n- **Department:** CCS\n- **Contact:** 9778669996\n- **Guardian:** Jessica Woodard\n- **Guardian Contact:**\n\n**2. Barnes, Mark**\n- **Student ID:** PDM-2025-000035\n- **Department:** CCS\n- **Contact:** 9295486387\n- **Guardian:** Matthew Colon\n- **Guardian Contact:**\n\n**3. Bridges, Mary**\n- **Student ID:** PDM-2025-000045\n- **Department:** CCS\n- **Contact:** 9707570785\n- **Guardian:** Robert Lopez\n- **Guardian Contact:**\n\n**4. Bright, Ryan**\n- **Student ID:** PDM-2025-000040\n- **Department:** CCS\n- **Contact:** 9750076283\n- **Guardian:** Matthew Chapman\n- **Guardian Contact:**\n\n**5. Brooks, Christina**\n- **Student ID:** PDM-2025-000054\n- **Department:** CCS\n- **Contact:** 9161784194\n- **Guardian:** Susan Hernandez\n- **Guardian Contact:**\n\n**6. Burton, Joe**\n- **Student ID:** PDM-2025-000051\n- **Department:** CCS\n- **Contact:** 9766532627\n- **Guardian:** Patrick Kirk\n- **Guardian Contact:**\n\n**7. Carpenter, Michael**\n- **Student ID:** PDM-2025-000031\n- **Department:** CCS\n- **Contact:** 9211796807\n- **Guardian:** Victor Martin\n- **Guardian Contact:**\n\n**8. Castro, Mary**\n- **Student ID:** PDM-2025-000060\n- **Department:** CCS\n- **Contact:** 9571735838\n- **Guardian:** George Howard\n- **Guardian Contact:**\n\n**9. Clarke, Jacob**\n- **Student ID:** PDM-2025-000042\n- **Department:** CCS\n- **Contact:** 9715968207\n- **Guardian:** Terry Moore\n- **Guardian Contact:**\n\n**10. Cox, Susan**\n- **Student ID:** PDM-2025-000047\n- **Department:** CCS\n- **Contact:** 9881949305\n- **Guardian:** Scott French\n- **Guardian Contact:**\n\n**11. Gray, Mary**\n- **Student ID:** PDM-2025-000050\n- **Department:** CCS\n- **Contact:** 9285572911\n- **Guardian:** Alicia Cobb\n- **Guardian Contact:**\n\n**12. Hodge, Karen**\n- **Student ID:** PDM-2025-000043\n- **Department:** CCS\n- **Contact:** 9660074696\n- **Guardian:** Sarah Clark\n- **Guardian Contact:**\n\n**13. Hudson, Samantha**\n- **Student ID:** PDM-2025-000046\n- **Department:** CCS\n- **Contact:** 9246072598\n- **Guardian:** Gail Boyer\n- **Guardian Contact:**\n\n**14. Martinez, Maria**\n- **Student ID:** PDM-2025-000033\n- **Department:** CCS\n- **Contact:** 9806732623\n- **Guardian:** Abigail Lawrence\n- **Guardian Contact:**\n\n**15. Miles, David**\n- **Student ID:** PDM-2025-000059\n- **Department:** CCS\n- **Contact:** 9650327898\n- **Guardian:** Debbie Burton\n- **Guardian Contact:**\n\n**16. Miles, Karen**\n- **Student ID:** PDM-2025-000044\n- **Department:** CCS\n- **Contact:** 9551470667\n- **Guardian:** Teresa Jarvis\n- **Guardian Contact:**\n\n**17. Miller, Logan**\n- **Student ID:** PDM-2025-000034\n- **Department:** CCS\n- **Contact:** 9991725464\n- **Guardian:** Terry Schmidt\n- **Guardian Contact:**\n\n**18. Ochoa, Jaime**\n- **Student ID:** PDM-2025-000038\n- **Department:** CCS\n- **Contact:** 9829905736\n- **Guardian:** Rebecca Butler\n- **Guardian Contact:**\n\n**19. Pace, Lee**\n- **Student ID:** PDM-2025-000037\n- **Department:** CCS\n- **Contact:** 9948747224\n- **Guardian:** Jaime Fields\n- **Guardian Contact:**\n\n**20. Palmer, Brian**\n- **Student ID:** PDM-2025-000058\n- **Department:** CCS\n- **Contact:** 9589836425\n- **Guardian:** Kathy Hunt\n- **Guardian Contact:**\n\n**21. Richard, Jackie**\n- **Student ID:** PDM-2025-000055\n- **Department:** CCS\n- **Contact:** 9592971387\n- **Guardian:** Kristina Garner\n- **Guardian Contact:**\n\n**22. Roberts, Steven**\n- **Student ID:** PDM-2025-000057\n- **Department:** CCS\n- **Contact:** 9619121737\n- **Guardian:** Craig Callahan\n- **Guardian Contact:**\n\n**23. Ruiz, Erin**\n- **Student ID:** PDM-2025-000032\n- **Department:** CCS\n- **Contact:** 9263602462\n- **Guardian:** Crystal Johnson\n- **Guardian Contact:**\n\n**24. Stone, Rebecca**\n- **Student ID:** PDM-2025-000036\n- **Department:** CCS\n- **Contact:** 9524683884\n- **Guardian:** Kimberly Rodriguez\n- **Guardian Contact:**\n\n**25. Sutton, Christopher**\n- **Student ID:** PDM-2025-000053\n- **Department:** CCS\n- **Contact:** 9064873166\n- **Guardian:** Robert Smith\n- **Guardian Contact:**\n\n**26. Valdez, Elizabeth**\n- **Student ID:** PDM-2025-000048\n- **Department:** CCS\n- **Contact:** 9393149877\n- **Guardian:** Sean Berry\n- **Guardian Contact:**\n\n**27. Walker, John**\n- **Student ID:** PDM-2025-000052\n- **Department:** CCS\n- **Contact:** 9192445008\n- **Guardian:** Wanda Roberts\n- **Guardian Contact:**\n\n**28. Walker, Megan**\n- **Student ID:** PDM-2025-000056\n- **Department:** CCS\n- **Contact:** 9655792439\n- **Guardian:** Marcus Stafford\n- **Guardian Contact:**\n\n**29. White, Rhonda**\n- **Student ID:** PDM-2025-000039\n- **Department:** CCS\n- **Contact:** 9486019579\n- **Guardian:** Heather Davis\n- **Guardian Contact:**\n\n**30. Williams, Chloe**\n- **Student ID:** PDM-2025-000041\n- **Department:** CCS\n- **Contact:** 9945427450\n- **Guardian:** Anthony Carter\n- **Guardian Contact:**\n\n- [system_summary]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "all bscs students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "program": "BSCS",
+                "role": "student",
+                "n_results": 1000
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 8.164941787719727,
+      "timestamp": "2025-10-12T16:19:27.591753",
+      "final_answer": "Here is the complete list of all BSCS students:\n\nFound a total of 30 students, organized as follows:\n\n## BSCS - Year 2 - Section A (30 students)\n\n**1. Ali, Charles**\n- **Student ID:** PDM-2025-000049\n- **Department:** CCS\n- **Contact:** 9778669996\n- **Guardian:** Jessica Woodard\n- **Guardian Contact:**\n\n**2. Barnes, Mark**\n- **Student ID:** PDM-2025-000035\n- **Department:** CCS\n- **Contact:** 9295486387\n- **Guardian:** Matthew Colon\n- **Guardian Contact:**\n\n**3. Bridges, Mary**\n- **Student ID:** PDM-2025-000045\n- **Department:** CCS\n- **Contact:** 9707570785\n- **Guardian:** Robert Lopez\n- **Guardian Contact:**\n\n**4. Bright, Ryan**\n- **Student ID:** PDM-2025-000040\n- **Department:** CCS\n- **Contact:** 9750076283\n- **Guardian:** Matthew Chapman\n- **Guardian Contact:**\n\n**5. Brooks, Christina**\n- **Student ID:** PDM-2025-000054\n- **Department:** CCS\n- **Contact:** 9161784194\n- **Guardian:** Susan Hernandez\n- **Guardian Contact:**\n\n**6. Burton, Joe**\n- **Student ID:** PDM-2025-000051\n- **Department:** CCS\n- **Contact:** 9766532627\n- **Guardian:** Patrick Kirk\n- **Guardian Contact:**\n\n**7. Carpenter, Michael**\n- **Student ID:** PDM-2025-000031\n- **Department:** CCS\n- **Contact:** 9211796807\n- **Guardian:** Victor Martin\n- **Guardian Contact:**\n\n**8. Castro, Mary**\n- **Student ID:** PDM-2025-000060\n- **Department:** CCS\n- **Contact:** 9571735838\n- **Guardian:** George Howard\n- **Guardian Contact:**\n\n**9. Clarke, Jacob**\n- **Student ID:** PDM-2025-000042\n- **Department:** CCS\n- **Contact:** 9715968207\n- **Guardian:** Terry Moore\n- **Guardian Contact:**\n\n**10. Cox, Susan**\n- **Student ID:** PDM-2025-000047\n- **Department:** CCS\n- **Contact:** 9881949305\n- **Guardian:** Scott French\n- **Guardian Contact:**\n\n**11. Gray, Mary**\n- **Student ID:** PDM-2025-000050\n- **Department:** CCS\n- **Contact:** 9285572911\n- **Guardian:** Alicia Cobb\n- **Guardian Contact:**\n\n**12. Hodge, Karen**\n- **Student ID:** PDM-2025-000043\n- **Department:** CCS\n- **Contact:** 9660074696\n- **Guardian:** Sarah Clark\n- **Guardian Contact:**\n\n**13. Hudson, Samantha**\n- **Student ID:** PDM-2025-000046\n- **Department:** CCS\n- **Contact:** 9246072598\n- **Guardian:** Gail Boyer\n- **Guardian Contact:**\n\n**14. Martinez, Maria**\n- **Student ID:** PDM-2025-000033\n- **Department:** CCS\n- **Contact:** 9806732623\n- **Guardian:** Abigail Lawrence\n- **Guardian Contact:**\n\n**15. Miles, David**\n- **Student ID:** PDM-2025-000059\n- **Department:** CCS\n- **Contact:** 9650327898\n- **Guardian:** Debbie Burton\n- **Guardian Contact:**\n\n**16. Miles, Karen**\n- **Student ID:** PDM-2025-000044\n- **Department:** CCS\n- **Contact:** 9551470667\n- **Guardian:** Teresa Jarvis\n- **Guardian Contact:**\n\n**17. Miller, Logan**\n- **Student ID:** PDM-2025-000034\n- **Department:** CCS\n- **Contact:** 9991725464\n- **Guardian:** Terry Schmidt\n- **Guardian Contact:**\n\n**18. Ochoa, Jaime**\n- **Student ID:** PDM-2025-000038\n- **Department:** CCS\n- **Contact:** 9829905736\n- **Guardian:** Rebecca Butler\n- **Guardian Contact:**\n\n**19. Pace, Lee**\n- **Student ID:** PDM-2025-000037\n- **Department:** CCS\n- **Contact:** 9948747224\n- **Guardian:** Jaime Fields\n- **Guardian Contact:**\n\n**20. Palmer, Brian**\n- **Student ID:** PDM-2025-000058\n- **Department:** CCS\n- **Contact:** 9589836425\n- **Guardian:** Kathy Hunt\n- **Guardian Contact:**\n\n**21. Richard, Jackie**\n- **Student ID:** PDM-2025-000055\n- **Department:** CCS\n- **Contact:** 9592971387\n- **Guardian:** Kristina Garner\n- **Guardian Contact:**\n\n**22. Roberts, Steven**\n- **Student ID:** PDM-2025-000057\n- **Department:** CCS\n- **Contact:** 9619121737\n- **Guardian:** Craig Callahan\n- **Guardian Contact:**\n\n**23. Ruiz, Erin**\n- **Student ID:** PDM-2025-000032\n- **Department:** CCS\n- **Contact:** 9263602462\n- **Guardian:** Crystal Johnson\n- **Guardian Contact:**\n\n**24. Stone, Rebecca**\n- **Student ID:** PDM-2025-000036\n- **Department:** CCS\n- **Contact:** 9524683884\n- **Guardian:** Kimberly Rodriguez\n- **Guardian Contact:**\n\n**25. Sutton, Christopher**\n- **Student ID:** PDM-2025-000053\n- **Department:** CCS\n- **Contact:** 9064873166\n- **Guardian:** Robert Smith\n- **Guardian Contact:**\n\n**26. Valdez, Elizabeth**\n- **Student ID:** PDM-2025-000048\n- **Department:** CCS\n- **Contact:** 9393149877\n- **Guardian:** Sean Berry\n- **Guardian Contact:**\n\n**27. Walker, John**\n- **Student ID:** PDM-2025-000052\n- **Department:** CCS\n- **Contact:** 9192445008\n- **Guardian:** Wanda Roberts\n- **Guardian Contact:**\n\n**28. Walker, Megan**\n- **Student ID:** PDM-2025-000056\n- **Department:** CCS\n- **Contact:** 9655792439\n- **Guardian:** Marcus Stafford\n- **Guardian Contact:**\n\n**29. White, Rhonda**\n- **Student ID:** PDM-2025-000039\n- **Department:** CCS\n- **Contact:** 9486019579\n- **Guardian:** Heather Davis\n- **Guardian Contact:**\n\n**30. Williams, Chloe**\n- **Student ID:** PDM-2025-000041\n- **Department:** CCS\n- **Contact:** 9945427450\n- **Guardian:** Anthony Carter\n- **Guardian Contact:**\n\n- [system_summary]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "all bscs students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "program": "BSCS",
+                "role": "student",
+                "n_results": 1000
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 8.66897177696228,
+      "timestamp": "2025-10-12T16:40:45.518848",
+      "final_answer": "Here is the complete list of all BSCS students:\n\nFound a total of 30 students, organized as follows:\n\n## BSCS - Year 2 - Section A (30 students)\n\n**1. Ali, Charles**\n- **Student ID:** PDM-2025-000049\n- **Department:** CCS\n- **Contact:** 9778669996\n- **Guardian:** Jessica Woodard\n- **Guardian Contact:**\n\n**2. Barnes, Mark**\n- **Student ID:** PDM-2025-000035\n- **Department:** CCS\n- **Contact:** 9295486387\n- **Guardian:** Matthew Colon\n- **Guardian Contact:**\n\n**3. Bridges, Mary**\n- **Student ID:** PDM-2025-000045\n- **Department:** CCS\n- **Contact:** 9707570785\n- **Guardian:** Robert Lopez\n- **Guardian Contact:**\n\n**4. Bright, Ryan**\n- **Student ID:** PDM-2025-000040\n- **Department:** CCS\n- **Contact:** 9750076283\n- **Guardian:** Matthew Chapman\n- **Guardian Contact:**\n\n**5. Brooks, Christina**\n- **Student ID:** PDM-2025-000054\n- **Department:** CCS\n- **Contact:** 9161784194\n- **Guardian:** Susan Hernandez\n- **Guardian Contact:**\n\n**6. Burton, Joe**\n- **Student ID:** PDM-2025-000051\n- **Department:** CCS\n- **Contact:** 9766532627\n- **Guardian:** Patrick Kirk\n- **Guardian Contact:**\n\n**7. Carpenter, Michael**\n- **Student ID:** PDM-2025-000031\n- **Department:** CCS\n- **Contact:** 9211796807\n- **Guardian:** Victor Martin\n- **Guardian Contact:**\n\n**8. Castro, Mary**\n- **Student ID:** PDM-2025-000060\n- **Department:** CCS\n- **Contact:** 9571735838\n- **Guardian:** George Howard\n- **Guardian Contact:**\n\n**9. Clarke, Jacob**\n- **Student ID:** PDM-2025-000042\n- **Department:** CCS\n- **Contact:** 9715968207\n- **Guardian:** Terry Moore\n- **Guardian Contact:**\n\n**10. Cox, Susan**\n- **Student ID:** PDM-2025-000047\n- **Department:** CCS\n- **Contact:** 9881949305\n- **Guardian:** Scott French\n- **Guardian Contact:**\n\n**11. Gray, Mary**\n- **Student ID:** PDM-2025-000050\n- **Department:** CCS\n- **Contact:** 9285572911\n- **Guardian:** Alicia Cobb\n- **Guardian Contact:**\n\n**12. Hodge, Karen**\n- **Student ID:** PDM-2025-000043\n- **Department:** CCS\n- **Contact:** 9660074696\n- **Guardian:** Sarah Clark\n- **Guardian Contact:**\n\n**13. Hudson, Samantha**\n- **Student ID:** PDM-2025-000046\n- **Department:** CCS\n- **Contact:** 9246072598\n- **Guardian:** Gail Boyer\n- **Guardian Contact:**\n\n**14. Martinez, Maria**\n- **Student ID:** PDM-2025-000033\n- **Department:** CCS\n- **Contact:** 9806732623\n- **Guardian:** Abigail Lawrence\n- **Guardian Contact:**\n\n**15. Miles, David**\n- **Student ID:** PDM-2025-000059\n- **Department:** CCS\n- **Contact:** 9650327898\n- **Guardian:** Debbie Burton\n- **Guardian Contact:**\n\n**16. Miles, Karen**\n- **Student ID:** PDM-2025-000044\n- **Department:** CCS\n- **Contact:** 9551470667\n- **Guardian:** Teresa Jarvis\n- **Guardian Contact:**\n\n**17. Miller, Logan**\n- **Student ID:** PDM-2025-000034\n- **Department:** CCS\n- **Contact:** 9991725464\n- **Guardian:** Terry Schmidt\n- **Guardian Contact:**\n\n**18. Ochoa, Jaime**\n- **Student ID:** PDM-2025-000038\n- **Department:** CCS\n- **Contact:** 9829905736\n- **Guardian:** Rebecca Butler\n- **Guardian Contact:**\n\n**19. Pace, Lee**\n- **Student ID:** PDM-2025-000037\n- **Department:** CCS\n- **Contact:** 9948747224\n- **Guardian:** Jaime Fields\n- **Guardian Contact:**\n\n**20. Palmer, Brian**\n- **Student ID:** PDM-2025-000058\n- **Department:** CCS\n- **Contact:** 9589836425\n- **Guardian:** Kathy Hunt\n- **Guardian Contact:**\n\n**21. Richard, Jackie**\n- **Student ID:** PDM-2025-000055\n- **Department:** CCS\n- **Contact:** 9592971387\n- **Guardian:** Kristina Garner\n- **Guardian Contact:**\n\n**22. Roberts, Steven**\n- **Student ID:** PDM-2025-000057\n- **Department:** CCS\n- **Contact:** 9619121737\n- **Guardian:** Craig Callahan\n- **Guardian Contact:**\n\n**23. Ruiz, Erin**\n- **Student ID:** PDM-2025-000032\n- **Department:** CCS\n- **Contact:** 9263602462\n- **Guardian:** Crystal Johnson\n- **Guardian Contact:**\n\n**24. Stone, Rebecca**\n- **Student ID:** PDM-2025-000036\n- **Department:** CCS\n- **Contact:** 9524683884\n- **Guardian:** Kimberly Rodriguez\n- **Guardian Contact:**\n\n**25. Sutton, Christopher**\n- **Student ID:** PDM-2025-000053\n- **Department:** CCS\n- **Contact:** 9064873166\n- **Guardian:** Robert Smith\n- **Guardian Contact:**\n\n**26. Valdez, Elizabeth**\n- **Student ID:** PDM-2025-000048\n- **Department:** CCS\n- **Contact:** 9393149877\n- **Guardian:** Sean Berry\n- **Guardian Contact:**\n\n**27. Walker, John**\n- **Student ID:** PDM-2025-000052\n- **Department:** CCS\n- **Contact:** 9192445008\n- **Guardian:** Wanda Roberts\n- **Guardian Contact:**\n\n**28. Walker, Megan**\n- **Student ID:** PDM-2025-000056\n- **Department:** CCS\n- **Contact:** 9655792439\n- **Guardian:** Marcus Stafford\n- **Guardian Contact:**\n\n**29. White, Rhonda**\n- **Student ID:** PDM-2025-000039\n- **Department:** CCS\n- **Contact:** 9486019579\n- **Guardian:** Heather Davis\n- **Guardian Contact:**\n\n**30. Williams, Chloe**\n- **Student ID:** PDM-2025-000041\n- **Department:** CCS\n- **Contact:** 9945427450\n- **Guardian:** Anthony Carter\n- **Guardian Contact:**\n\n- [system_summary]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "who is rebecca",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "rebecca"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.9709367752075195,
+      "timestamp": "2025-10-12T16:52:51.892624",
+      "final_answer": "Rebecca Stone is a second-year student in the BSCS program at PDM, specifically in Section A of the Computer and Communication Sciences (CCS) department.\n\n- She is enrolled under the student ID PDM-2025-000036.\n- Her contact number is 9524683884.\n- Her guardian is Kimberly Rodriguez.\n- Her profile completion is at 87.5%.\n- [students]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "who is rebecca",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "rebecca"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.410796880722046,
+      "timestamp": "2025-10-12T16:56:23.440549",
+      "final_answer": "Rebecca Stone is a second-year student in the BSCS program at PDM, specifically in Section A of the Computer and Communication Sciences (CCS) department.\n\n- She is enrolled under the student ID PDM-2025-000036.\n- Her contact number is 9524683884.\n- Her guardian is Kimberly Rodriguez.\n- Her profile completion is at 87.5%.\n- [students]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "who is franklin visto",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "franklin visto"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.6273610591888428,
+      "timestamp": "2025-10-12T16:59:13.309866",
+      "final_answer": "Franklin Visto is a third-year student in the BSCS program at PDM, specifically in Section A of the Computer and Communication Sciences (CCS) department.\n\n- He is enrolled under the student ID PDM-2023-003195.\n- His contact number is 09055958394.\n- His guardian is Visto.\n- His profile completion is at 87.5%.\n- [students]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "who is franklin visto",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "franklin visto"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 3.941662311553955,
+      "timestamp": "2025-10-12T17:12:01.346232",
+      "final_answer": "Franklin Visto is a third-year student in the BSCS program at PDM, specifically in Section A of the Computer and Communication Sciences (CCS) department.\n\n- He is enrolled under the student ID PDM-2023-003195.\n- His contact number is 09055958394.\n- His guardian is Visto.\n- His profile completion is at 87.5%.\n- [students]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "& C:/Users/BJ/AppData/Local/Microsoft/WindowsApps/python3.11.exe \"d:/Desktop HDD/INTSYS/InstSys-CaseStudy-AI/backend/utils/run_ai.py\"",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_database_summary",
+              "parameters": {}
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 2,
+      "execution_time": 2.5008208751678467,
+      "timestamp": "2025-10-12T17:12:29.563712",
+      "final_answer": "The database contains information about students, including their completion percentage, contact number, course, department, and full name. There is one collection named 'students' with 151 documents.\n\n- The 'students' collection has 151 documents, and key information includes completion percentage, contact number, course, created_at, department, first_name, and full_name. [collection_info]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "who is visto",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "get_person_profile",
+              "parameters": {
+                "person_name": "visto"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 2.5075244903564453,
+      "timestamp": "2025-10-12T17:12:36.167948",
+      "final_answer": "Franklin Visto is a third-year BSCS student in Section A of the Computer and Communication Sciences (CCS) department at PDM.\n\n- He is enrolled under the student ID PDM-2023-003195.\n- His contact number is 09055958394.\n- His guardian is Visto.\n- His profile completion is at 87.5%.\n- [students]",
+      "error_message": null,
+      "corruption_details": null
+    },
+    {
+      "query": "who are the bscs 2nd year students",
+      "plan": {
+        "plan": [
+          {
+            "step": 1,
+            "thought": "AI selected the best tool on attempt 1.",
+            "tool_call": {
+              "tool_name": "find_people",
+              "parameters": {
+                "program": "BSCS",
+                "year_level": 2,
+                "role": "student"
+              }
+            }
+          }
+        ]
+      },
+      "outcome": "SUCCESS_DIRECT",
+      "analyst_mode": "online",
+      "execution_mode": "primary",
+      "results_count": 1,
+      "execution_time": 8.708892822265625,
+      "timestamp": "2025-10-12T17:24:02.761578",
+      "final_answer": "Here is the complete list of all BSCS 2nd year students:\n\nFound a total of 30 students, organized as follows:\n\n## BSCS - Year 2 - Section A (30 students)\n\n**1. Ali, Charles**\n- **Student ID:** PDM-2025-000049\n- **Department:** CCS\n- **Contact:** 9778669996\n- **Guardian:** Jessica Woodard\n- **Guardian Contact:**\n\n**2. Barnes, Mark**\n- **Student ID:** PDM-2025-000035\n- **Department:** CCS\n- **Contact:** 9295486387\n- **Guardian:** Matthew Colon\n- **Guardian Contact:**\n\n**3. Bridges, Mary**\n- **Student ID:** PDM-2025-000045\n- **Department:** CCS\n- **Contact:** 9707570785\n- **Guardian:** Robert Lopez\n- **Guardian Contact:**\n\n**4. Bright, Ryan**\n- **Student ID:** PDM-2025-000040\n- **Department:** CCS\n- **Contact:** 9750076283\n- **Guardian:** Matthew Chapman\n- **Guardian Contact:**\n\n**5. Brooks, Christina**\n- **Student ID:** PDM-2025-000054\n- **Department:** CCS\n- **Contact:** 9161784194\n- **Guardian:** Susan Hernandez\n- **Guardian Contact:**\n\n**6. Burton, Joe**\n- **Student ID:** PDM-2025-000051\n- **Department:** CCS\n- **Contact:** 9766532627\n- **Guardian:** Patrick Kirk\n- **Guardian Contact:**\n\n**7. Carpenter, Michael**\n- **Student ID:** PDM-2025-000031\n- **Department:** CCS\n- **Contact:** 9211796807\n- **Guardian:** Victor Martin\n- **Guardian Contact:**\n\n**8. Castro, Mary**\n- **Student ID:** PDM-2025-000060\n- **Department:** CCS\n- **Contact:** 9571735838\n- **Guardian:** George Howard\n- **Guardian Contact:**\n\n**9. Clarke, Jacob**\n- **Student ID:** PDM-2025-000042\n- **Department:** CCS\n- **Contact:** 9715968207\n- **Guardian:** Terry Moore\n- **Guardian Contact:**\n\n**10. Cox, Susan**\n- **Student ID:** PDM-2025-000047\n- **Department:** CCS\n- **Contact:** 9881949305\n- **Guardian:** Scott French\n- **Guardian Contact:**\n\n**11. Gray, Mary**\n- **Student ID:** PDM-2025-000050\n- **Department:** CCS\n- **Contact:** 9285572911\n- **Guardian:** Alicia Cobb\n- **Guardian Contact:**\n\n**12. Hodge, Karen**\n- **Student ID:** PDM-2025-000043\n- **Department:** CCS\n- **Contact:** 9660074696\n- **Guardian:** Sarah Clark\n- **Guardian Contact:**\n\n**13. Hudson, Samantha**\n- **Student ID:** PDM-2025-000046\n- **Department:** CCS\n- **Contact:** 9246072598\n- **Guardian:** Gail Boyer\n- **Guardian Contact:**\n\n**14. Martinez, Maria**\n- **Student ID:** PDM-2025-000033\n- **Department:** CCS\n- **Contact:** 9806732623\n- **Guardian:** Abigail Lawrence\n- **Guardian Contact:**\n\n**15. Miles, David**\n- **Student ID:** PDM-2025-000059\n- **Department:** CCS\n- **Contact:** 9650327898\n- **Guardian:** Debbie Burton\n- **Guardian Contact:**\n\n**16. Miles, Karen**\n- **Student ID:** PDM-2025-000044\n- **Department:** CCS\n- **Contact:** 9551470667\n- **Guardian:** Teresa Jarvis\n- **Guardian Contact:**\n\n**17. Miller, Logan**\n- **Student ID:** PDM-2025-000034\n- **Department:** CCS\n- **Contact:** 9991725464\n- **Guardian:** Terry Schmidt\n- **Guardian Contact:**\n\n**18. Ochoa, Jaime**\n- **Student ID:** PDM-2025-000038\n- **Department:** CCS\n- **Contact:** 9829905736\n- **Guardian:** Rebecca Butler\n- **Guardian Contact:**\n\n**19. Pace, Lee**\n- **Student ID:** PDM-2025-000037\n- **Department:** CCS\n- **Contact:** 9948747224\n- **Guardian:** Jaime Fields\n- **Guardian Contact:**\n\n**20. Palmer, Brian**\n- **Student ID:** PDM-2025-000058\n- **Department:** CCS\n- **Contact:** 9589836425\n- **Guardian:** Kathy Hunt\n- **Guardian Contact:**\n\n**21. Richard, Jackie**\n- **Student ID:** PDM-2025-000055\n- **Department:** CCS\n- **Contact:** 9592971387\n- **Guardian:** Kristina Garner\n- **Guardian Contact:**\n\n**22. Roberts, Steven**\n- **Student ID:** PDM-2025-000057\n- **Department:** CCS\n- **Contact:** 9619121737\n- **Guardian:** Craig Callahan\n- **Guardian Contact:**\n\n**23. Ruiz, Erin**\n- **Student ID:** PDM-2025-000032\n- **Department:** CCS\n- **Contact:** 9263602462\n- **Guardian:** Crystal Johnson\n- **Guardian Contact:**\n\n**24. Stone, Rebecca**\n- **Student ID:** PDM-2025-000036\n- **Department:** CCS\n- **Contact:** 9524683884\n- **Guardian:** Kimberly Rodriguez\n- **Guardian Contact:**\n\n**25. Sutton, Christopher**\n- **Student ID:** PDM-2025-000053\n- **Department:** CCS\n- **Contact:** 9064873166\n- **Guardian:** Robert Smith\n- **Guardian Contact:**\n\n**26. Valdez, Elizabeth**\n- **Student ID:** PDM-2025-000048\n- **Department:** CCS\n- **Contact:** 9393149877\n- **Guardian:** Sean Berry\n- **Guardian Contact:**\n\n**27. Walker, John**\n- **Student ID:** PDM-2025-000052\n- **Department:** CCS\n- **Contact:** 9192445008\n- **Guardian:** Wanda Roberts\n- **Guardian Contact:**\n\n**28. Walker, Megan**\n- **Student ID:** PDM-2025-000056\n- **Department:** CCS\n- **Contact:** 9655792439\n- **Guardian:** Marcus Stafford\n- **Guardian Contact:**\n\n**29. White, Rhonda**\n- **Student ID:** PDM-2025-000039\n- **Department:** CCS\n- **Contact:** 9486019579\n- **Guardian:** Heather Davis\n- **Guardian Contact:**\n\n**30. Williams, Chloe**\n- **Student ID:** PDM-2025-000041\n- **Department:** CCS\n- **Contact:** 9945427450\n- **Guardian:** Anthony Carter\n- **Guardian Contact:**\n\n- [system_summary]",
+      "error_message": null,
+      "corruption_details": null
     }
   ],
   "query_patterns": {},
