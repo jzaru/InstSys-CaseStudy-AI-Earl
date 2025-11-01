@@ -136,26 +136,40 @@ class TeachingFacultyResumeExtractor {
       const execPromise = util.promisify(exec);
       
       const outputDir = path.join(path.dirname(filePath), '.temp_images');
-      const baseFileName = path.basename(filePath, '.pdf');
+      const baseFileName = path.basename(filePath, '.pdf').replace(/\s+/g, '_');
       
       // Create temp directory
       await fs.mkdir(outputDir, { recursive: true });
       
-      // Use pdfimages (from poppler-utils) if available
+      // Try pdfimages (from poppler-utils) if available
       try {
-        await execPromise(`pdfimages -j "${filePath}" "${outputDir}/${baseFileName}"`);
+        console.log(`   Attempting to extract images using pdfimages...`);
+        
+        // Use -all flag to extract all image formats
+        const outputPath = path.join(outputDir, baseFileName);
+        await execPromise(`pdfimages -all "${filePath}" "${outputPath}"`);
         
         // Check for extracted images
         const files = await fs.readdir(outputDir);
         const imageFiles = files.filter(f => 
           f.startsWith(baseFileName) && 
-          (f.endsWith('.jpg') || f.endsWith('.png') || f.endsWith('.ppm'))
+          (f.endsWith('.jpg') || f.endsWith('.png') || 
+           f.endsWith('.ppm') || f.endsWith('.pbm') || f.endsWith('.jpeg'))
         );
+        
+        console.log(`   Found ${imageFiles.length} image(s)`);
         
         if (imageFiles.length > 0) {
           // Get the first (likely profile) image
           const imagePath = path.join(outputDir, imageFiles[0]);
           const imageBuffer = await fs.readFile(imagePath);
+          
+          const photoData = {
+            buffer: imageBuffer,
+            extension: path.extname(imageFiles[0]),
+            size: imageBuffer.length,
+            filename: imageFiles[0]
+          };
           
           // Clean up temp files
           for (const file of imageFiles) {
@@ -163,15 +177,11 @@ class TeachingFacultyResumeExtractor {
           }
           await fs.rmdir(outputDir).catch(() => {});
           
-          return {
-            buffer: imageBuffer,
-            extension: path.extname(imageFiles[0]),
-            size: imageBuffer.length,
-            filename: imageFiles[0]
-          };
+          return photoData;
         }
       } catch (cmdError) {
-        // pdfimages not available, continue without photo
+        console.log(`   pdfimages not available: ${cmdError.message}`);
+        console.log(`   Install poppler-utils for image extraction support`);
       }
       
       // Clean up temp directory
@@ -190,24 +200,53 @@ class TeachingFacultyResumeExtractor {
   extractNameFromStructure(text) {
     const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
     
+    // Common job titles to skip
+    const jobTitles = [
+      'FLIGHT ATTENDANT', 'FLIGHT TRAINING', 'TEACHER', 'PROFESSOR', 'INSTRUCTOR', 'ENGINEER',
+      'ACCOUNTANT', 'MANAGER', 'DIRECTOR', 'COORDINATOR', 'SPECIALIST',
+      'ANALYST', 'DEVELOPER', 'DESIGNER', 'CONSULTANT', 'ADMINISTRATOR',
+      'ASSISTANT', 'ASSOCIATE', 'SENIOR', 'JUNIOR', 'HEAD', 'CHIEF', 'TRAINING'
+    ];
+    
     // Strategy 1: Look for name-like patterns in first 10 lines
     for (let i = 0; i < Math.min(10, lines.length); i++) {
       const line = lines[i];
+      const upper = line.toUpperCase();
+      
+      // Skip job titles
+      let isJobTitle = false;
+      for (const title of jobTitles) {
+        if (upper.includes(title)) {
+          isJobTitle = true;
+          break;
+        }
+      }
+      if (isJobTitle) continue;
       
       // Skip obvious non-name lines
       if (line.length > 50) continue;
       if (/^\d+$/.test(line)) continue;
-      if (line.toLowerCase().includes('curriculum') || 
-          line.toLowerCase().includes('vitae') ||
-          line.toLowerCase().includes('resume')) continue;
+      if (upper.includes('CURRICULUM') || 
+          upper.includes('VITAE') ||
+          upper.includes('RESUME') ||
+          upper.includes('CV') ||
+          upper.includes('CONTACT') ||
+          upper.includes('EDUCATION') ||
+          upper.includes('EXPERIENCE')) continue;
       
       // Check if line looks like a name (2-4 words, mostly letters)
       const words = line.split(/\s+/).filter(w => w.length > 1);
       if (words.length >= 2 && words.length <= 4) {
         const isAllWords = words.every(w => /^[A-Za-z'-]+$/.test(w));
         if (isAllWords) {
-          // Likely a name!
-          return this.parseFullName(line);
+          // Check if it's not all caps (likely a header, not a name)
+          const hasLowerCase = /[a-z]/.test(line);
+          const isProperCase = /^[A-Z][a-z]/.test(line);
+          
+          if (hasLowerCase || isProperCase) {
+            // Likely a name!
+            return this.parseFullName(line);
+          }
         }
       }
     }
@@ -215,6 +254,17 @@ class TeachingFacultyResumeExtractor {
     // Strategy 2: Look for lines with capital letters that might be names
     for (let i = 0; i < Math.min(15, lines.length); i++) {
       const line = lines[i];
+      const upper = line.toUpperCase();
+      
+      // Skip job titles again
+      let isJobTitle = false;
+      for (const title of jobTitles) {
+        if (upper.includes(title)) {
+          isJobTitle = true;
+          break;
+        }
+      }
+      if (isJobTitle) continue;
       
       // Check for "FirstName LastName" pattern (title case)
       if (/^[A-Z][a-z]+\s+[A-Z][a-z]+/.test(line) && line.length < 40) {

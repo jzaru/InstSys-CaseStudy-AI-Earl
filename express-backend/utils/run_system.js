@@ -115,15 +115,13 @@ class SchoolInformationSystem {
           console.log(`   Processing: ${file}`);
           
           try {
-            const extractor = new StudentDataExtractor();
-            const studentData = await extractor.extractFromExcel(filePath);
+            const success = await StudentDataExtractor.processExcel(filePath, this.db);
             
-            if (studentData && studentData.student_id) {
-              await this.db.addStudent(studentData);
+            if (success) {
               totalProcessed++;
               console.log(`   ✅ ${file}`);
             } else {
-              console.log(`   ❌ ${file} - Invalid data`);
+              console.log(`   ❌ ${file} - No data extracted`);
             }
           } catch (error) {
             console.error(`   ❌ ${file} - Error: ${error.message}`);
@@ -194,8 +192,8 @@ class SchoolInformationSystem {
       if (gradesExcelFiles.length > 0) {
         console.log(`\n📝 Found ${gradesExcelFiles.length} Grades Excel file(s)`);
         
-        const GradesExtractor = require('./grades_extractor');
-        const gradesExtractor = new GradesExtractor();
+        const StudentGradesExtractor = require('./student_grades_extractor');
+        const gradesExtractor = new StudentGradesExtractor();
         
         let gradesProcessed = 0;
         let gradesSkipped = 0;
@@ -205,12 +203,12 @@ class SchoolInformationSystem {
           console.log(`   Processing: ${file}`);
           
           try {
-            const gradesData = await gradesExtractor.processGradesExcel(filePath);
+            const gradesData = await gradesExtractor.extractStudentGradesExcelInfo(filePath);
             
-            if (gradesData) {
-              const result = await this.gradesManager.storeGrades(gradesData);
+            if (gradesData && gradesData.student_info) {
+              const result = await this.gradesManager.storeStudentGrades(gradesData);
               
-              if (result) {
+              if (result && result.success) {
                 totalProcessed++;
                 gradesProcessed++;
                 console.log(`   ✅ ${file}`);
@@ -321,7 +319,7 @@ class SchoolInformationSystem {
           console.log(`   Processing: ${file}`);
           
           try {
-            const schedData = await schedExtractor.processFacultyScheduleExcel(filePath);
+            const schedData = await schedExtractor.processTeachingFacultyScheduleExcel(filePath);
             
             if (schedData) {
               const result = await this.teachingFacultyScheduleManager.storeTeachingFacultySchedule(schedData);
@@ -1870,7 +1868,7 @@ async viewTeachingFacultySchedules() {
       console.log('\n' + '='.repeat(60));
       console.log('📋 FULL SCHEDULE DETAILS');
       console.log('='.repeat(60));
-      console.log(`\n${selectedSchedule.course} - Year ${selectedSchedule.year_level} - Section ${selectedSchedule.section}`);
+      console.log(`\n${selectedSchedule.course} - Year ${selectedSchedule.year} - Section ${selectedSchedule.section}`);
       console.log(`Adviser: ${selectedSchedule.adviser || 'N/A'}\n`);
 
       selectedSchedule.subjects.forEach((subject, i) => {
@@ -1906,7 +1904,7 @@ async viewTeachingFacultySchedules() {
     console.log('='.repeat(60));
     console.log(`Source File: ${schedule.source_file}`);
     console.log(`Current Course: "${schedule.course}"`);
-    console.log(`Current Year: "${schedule.year_level}"`);
+    console.log(`Current Year: "${schedule.year}"`);
     console.log(`Current Section: "${schedule.section}"`);
     console.log(`Subject Count: ${schedule.subject_count}`);
     
@@ -1933,7 +1931,7 @@ async viewTeachingFacultySchedules() {
         
         // Update the schedule
         schedule.course = correctCourse;
-        schedule.year_level = correctYear;
+        schedule.year = correctYear;
         schedule.section = correctSection;
         schedule.department = correctDept;
         schedule.schedule_id = `COR_${correctDept}_${correctCourse}_Y${correctYear}_${correctSection}_${Date.now()}`;
@@ -2101,7 +2099,7 @@ async viewTeachingFacultySchedules() {
       // Update the schedule
       schedule.course = courseCode;
       schedule.department = correctDept;
-      schedule.schedule_id = `COR_${correctDept}_${courseCode}_Y${schedule.year_level}_${schedule.section}_${Date.now()}`;
+      schedule.schedule_id = `COR_${correctDept}_${courseCode}_Y${schedule.year}_${schedule.section}_${Date.now()}`;
       schedule.updated_at = new Date();
 
       // Insert into correct collection

@@ -115,9 +115,13 @@ _getCollectionByDepartment(department) {
   try {
     const studentDoc = {
       student_id: data.student_id || '',
-      surname: data.surname || '',
+      email: data.email || '',
       first_name: data.first_name || '',
+      middle_name: data.middle_name || '',
+      last_name: data.last_name || data.surname || '',
+      surname: data.last_name || data.surname || '',  // Keep for backward compatibility
       full_name: data.full_name || '',
+      gender: data.gender || '',
       course: data.course || '',
       section: data.section || '',
       year: data.year || '',
@@ -131,7 +135,7 @@ _getCollectionByDepartment(department) {
         data: data.image_data || null,
         filename: data.image_filename || null,
         status: source === 'file_extraction' 
-          ? FieldStatus.WAITING 
+          ? (data.image_data ? FieldStatus.COMPLETE : FieldStatus.WAITING)
           : (data.image_data ? FieldStatus.COMPLETE : FieldStatus.WAITING)
       },
       audio: {
@@ -596,68 +600,492 @@ async getDepartmentStatistics(department) {
 class StudentDataExtractor {
   static async processExcel(filePath, db) {
     try {
+      console.log('\n📋 Reading Excel file...');
       const workbook = xlsx.readFile(filePath);
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
-      const data = xlsx.utils.sheet_to_json(worksheet);
+      let data = xlsx.utils.sheet_to_json(worksheet);  // Changed from const to let
 
+      console.log(`📊 Found ${data.length} rows in Excel`);
+
+      // DEBUG: Show actual column names from Excel
+      if (data.length > 0) {
+        console.log('\n🔍 Excel column names found:');
+        Object.keys(data[0]).forEach((col, i) => {
+          console.log(`   ${i + 1}. "${col}"`);
+        });
+        console.log('');
+      }
+
+      // Detect and handle transposed format
+      const isTransposed = this.detectTransposedFormat(data);
+      
+      if (isTransposed) {
+        console.log('⚠️  Detected transposed/scattered header format');
+        console.log('🔄 Attempting to extract student data rows...\n');
+        
+        data = this.extractStudentDataRows(data);
+        
+        if (data.length === 0) {
+          console.log('❌ Could not find student data rows');
+          return false;
+        }
+        
+        console.log(`✅ Reconstructed ${data.length} student rows\n`);
+      }
+
+      // New column mapping for the updated format
+      // Supports multiple variations of column names
       const columnMapping = {
+        // Student ID variations
         'student id': 'student_id',
-        'id no': 'student_id',
+        'student id (pdm-2023-000000)': 'student_id',
         'id': 'student_id',
+        'id number': 'student_id',
+        
+        // Email variations
+        'email address': 'email',
+        'email address (.pdm)': 'email',
+        'email': 'email',
+        
+        // Name variations
+        'name': 'full_name',  // Single "Name" column (contains full name)
         'full name': 'full_name',
-        'name': 'full_name',
-        'surname': 'surname',
+        'fullname': 'full_name',
+        
         'first name': 'first_name',
+        'firstname': 'first_name',
+        'given name': 'first_name',
+        
+        'middle name': 'middle_name',
+        'middlename': 'middle_name',
+        
+        'last name': 'last_name',
+        'lastname': 'last_name',
+        'surname': 'last_name',
+        'family name': 'last_name',
+        
+        // Gender
+        'gender': 'gender',
+        'sex': 'gender',
+        
+        // Year
         'year': 'year',
+        'year level': 'year',
+        
+        // Course & Section
         'course': 'course',
+        'program': 'course',
         'section': 'section',
+        
+        // Contact
         'contact number': 'contact_number',
+        'phone': 'contact_number',
+        'mobile': 'contact_number',
+        
+        // Guardian
         'guardian name': 'guardian_name',
-        'guardian contact': 'guardian_contact'
+        "guardian's name": 'guardian_name',
+        'parent name': 'guardian_name',
+        
+        "guardian's contact number": 'guardian_contact',
+        'guardian contact': 'guardian_contact',
+        'guardian contact number': 'guardian_contact',
+        'parent contact': 'guardian_contact',
+        
+        // Image URL
+        'upload 1x1 picture': 'image_url',
+        'photo': 'image_url',
+        'picture': 'image_url',
+        'image': 'image_url',
+        '1x1 picture': 'image_url'
       };
 
       let processedCount = 0;
+      let skippedCount = 0;
+      let errorCount = 0;
 
-      for (const row of data) {
-        const studentData = {};
+      console.log('\n🔄 Processing students...\n');
 
-        const normalizedRow = {};
-        Object.keys(row).forEach(key => {
-          normalizedRow[key.toLowerCase().trim()] = row[key];
-        });
+      for (let i = 0; i < data.length; i++) {
+        const row = data[i];
+        
+        try {
+          const studentData = {};
 
-        Object.keys(columnMapping).forEach(colHeader => {
-          const dataKey = columnMapping[colHeader];
-          if (normalizedRow[colHeader] !== undefined && normalizedRow[colHeader] !== null) {
-            const rawValue = String(normalizedRow[colHeader]).trim();
-            if (rawValue && !['nan', '', 'null'].includes(rawValue.toLowerCase())) {
-              studentData[dataKey] = this.cleanValue(rawValue, dataKey);
+          // Normalize column names
+          const normalizedRow = {};
+          Object.keys(row).forEach(key => {
+            normalizedRow[key.toLowerCase().trim()] = row[key];
+          });
+
+          // Extract fields using mapping
+          Object.keys(columnMapping).forEach(colHeader => {
+            const dataKey = columnMapping[colHeader];
+            if (normalizedRow[colHeader] !== undefined && normalizedRow[colHeader] !== null) {
+              const rawValue = String(normalizedRow[colHeader]).trim();
+              if (rawValue && !['nan', '', 'null', 'n/a'].includes(rawValue.toLowerCase())) {
+                studentData[dataKey] = this.cleanValue(rawValue, dataKey);
+              }
+            }
+          });
+
+          // Build full name from parts
+          if (!studentData.full_name && studentData.first_name && studentData.last_name) {
+            if (studentData.middle_name) {
+              studentData.full_name = `${studentData.last_name}, ${studentData.first_name} ${studentData.middle_name}`;
+            } else {
+              studentData.full_name = `${studentData.last_name}, ${studentData.first_name}`;
             }
           }
-        });
 
-        if (studentData.course) {
-          studentData.department = this.detectDepartment(studentData.course);
-        }
+          // Detect department from course
+          if (studentData.course) {
+            studentData.department = this.detectDepartment(studentData.course);
+            
+            // Debug: Show if department couldn't be detected
+            if (studentData.department === 'UNKNOWN' && i < 3) {
+              console.log(`   ⚠️  Could not detect department for course: "${studentData.course}"`);
+            }
+          }
 
-        if (!studentData.full_name && studentData.surname && studentData.first_name) {
-          studentData.full_name = `${studentData.surname}, ${studentData.first_name}`;
-        }
+          // Handle image URL
+          if (studentData.image_url) {
+            console.log(`   📷 Student ${studentData.student_id}: Found image URL`);
+            
+            // Download and convert image
+            const imageData = await this.downloadImageFromURL(studentData.image_url);
+            
+            if (imageData) {
+              studentData.image_data = imageData.buffer;
+              studentData.image_filename = imageData.filename;
+              console.log(`      ✅ Image downloaded (${imageData.size} bytes)`);
+            } else {
+              console.log(`      ⚠️  Could not download image`);
+            }
+            
+            // Remove URL from data (we don't store the URL)
+            delete studentData.image_url;
+          }
 
-        if (studentData.student_id || studentData.full_name) {
+          // Validate required fields
+          if (!studentData.student_id) {
+            console.log(`   ⚠️  Row ${i + 1}: Missing student ID, skipping`);
+            console.log(`      📋 Available data: ${Object.keys(studentData).join(', ')}`);
+            if (i < 3) {  // Show first 3 rows for debugging
+              console.log(`      🔍 Raw row data:`, JSON.stringify(normalizedRow, null, 2));
+            }
+            skippedCount++;
+            continue;
+          }
+
+          // Create student record
           const result = await db.createStudentRecord(studentData, 'file_extraction');
-          if (result) processedCount++;
+          
+          if (result) {
+            processedCount++;
+            if ((processedCount % 10) === 0) {
+              console.log(`   ✅ Processed ${processedCount} students...`);
+            }
+          }
+
+        } catch (rowError) {
+          errorCount++;
+          console.log(`   ❌ Row ${i + 1} error: ${rowError.message}`);
         }
       }
 
-      console.log(`📊 Processed ${processedCount} students from Excel`);
+      console.log(`\n📊 Processing Summary:`);
+      console.log(`   ✅ Successfully processed: ${processedCount}`);
+      console.log(`   ⚠️  Skipped: ${skippedCount}`);
+      console.log(`   ❌ Errors: ${errorCount}`);
+      
       return processedCount > 0;
 
     } catch (error) {
       console.error(`❌ Error processing Excel: ${error.message}`);
+      console.error(error.stack);
       return false;
     }
+  }
+
+  /**
+   * Detect if Excel is in transposed/scattered format
+   */
+  static detectTransposedFormat(data) {
+    if (data.length < 3) return false;
+    
+    // Check if first rows have strange column names like "course:", "academic year:", etc.
+    const firstRow = data[0];
+    const colNames = Object.keys(firstRow);
+    
+    const strangePatterns = ['course:', 'academic year:', 'bachelor of science'];
+    const hasStrangeColumns = colNames.some(col => 
+      strangePatterns.some(pattern => col.toLowerCase().includes(pattern))
+    );
+    
+    // Check if there are __empty columns (xlsx's way of showing unnamed columns)
+    const hasEmptyColumns = colNames.some(col => col.includes('__empty'));
+    
+    // Check if first column contains what looks like headers in values
+    const firstColKey = colNames[0];
+    const hasHeaderInValues = data.slice(0, 5).some(row => {
+      const val = String(row[firstColKey] || '').toLowerCase();
+      return val.includes('student id') || val.includes('name') || val === 'course:';
+    });
+    
+    return (hasStrangeColumns && hasEmptyColumns) || hasHeaderInValues;
+  }
+
+  /**
+   * Extract student data rows from transposed format
+   */
+  static extractStudentDataRows(data) {
+    // Find the row that contains "Student ID" in the first column
+    let headerRowIndex = -1;
+    const firstColKey = Object.keys(data[0])[0];
+    
+    for (let i = 0; i < data.length; i++) {
+      const firstColValue = String(data[i][firstColKey] || '').trim();
+      if (firstColValue.match(/^student\s*id$/i)) {
+        headerRowIndex = i;
+        break;
+      }
+    }
+    
+    if (headerRowIndex === -1) {
+      console.log('   ⚠️  Could not find "Student ID" header row');
+      return [];
+    }
+    
+    console.log(`   ✅ Found header row at index ${headerRowIndex}`);
+    
+    // The header row contains the actual column names
+    const headerRow = data[headerRowIndex];
+    const oldColumnKeys = Object.keys(headerRow);  // Use header row keys!
+    const newColumnNames = Object.values(headerRow).map(v => String(v || '').trim());
+    
+    console.log('   📋 Detected columns:', newColumnNames.filter(n => n).join(', '));
+    
+    // Debug: Show the mapping
+    console.log('   🔍 Column mapping:');
+    oldColumnKeys.slice(0, 5).forEach((oldKey, idx) => {
+      console.log(`      "${oldKey}" → "${newColumnNames[idx]}"`);
+    });
+    console.log('');
+    
+    // Now convert subsequent rows using these headers
+    const studentRows = [];
+    
+    for (let i = headerRowIndex + 1; i < data.length; i++) {
+      const oldRow = data[i];
+      const newRow = {};
+      
+      // Map old column keys to new column names
+      oldColumnKeys.forEach((oldKey, index) => {
+        const newColName = newColumnNames[index];
+        if (newColName && oldRow[oldKey] !== undefined) {
+          newRow[newColName] = oldRow[oldKey];
+        }
+      });
+      
+      // Skip empty rows
+      const hasData = Object.values(newRow).some(v => 
+        v !== undefined && v !== null && String(v).trim() !== ''
+      );
+      
+      if (hasData) {
+        // Debug: Show first student's data
+        if (studentRows.length === 0) {
+          console.log('   📝 First student row sample:');
+          Object.entries(newRow).slice(0, 6).forEach(([key, val]) => {
+            console.log(`      ${key}: "${val}"`);
+          });
+          console.log('');
+        }
+        
+        studentRows.push(newRow);
+      }
+    }
+    
+    return studentRows;
+  }
+
+  /**
+   * Convert various URL formats to direct download URLs
+   */
+  static convertToDirectDownloadURL(url) {
+    // Google Drive URLs
+    if (url.includes('drive.google.com')) {
+      // Extract file ID from various Google Drive URL formats
+      let fileId = null;
+      
+      // Format 1: /file/d/FILE_ID/view
+      const viewMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+      if (viewMatch) {
+        fileId = viewMatch[1];
+      }
+      
+      // Format 2: /open?id=FILE_ID
+      const openMatch = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+      if (openMatch) {
+        fileId = openMatch[1];
+      }
+      
+      // Format 3: /uc?id=FILE_ID (already direct)
+      if (url.includes('/uc?') && url.includes('id=')) {
+        // Already in direct download format, but ensure export=download
+        if (!url.includes('export=download')) {
+          return url + '&export=download';
+        }
+        return url;
+      }
+      
+      // Convert to direct download URL
+      if (fileId) {
+        console.log(`      📝 Converting Google Drive URL (ID: ${fileId.substring(0, 10)}...)`);
+        return `https://drive.google.com/uc?export=download&id=${fileId}`;
+      }
+    }
+    
+    // Google Forms/Docs URLs with file/d/ pattern
+    if (url.includes('docs.google.com') && url.includes('/file/d/')) {
+      const match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+      if (match) {
+        const fileId = match[1];
+        console.log(`      📝 Converting Google Docs URL (ID: ${fileId.substring(0, 10)}...)`);
+        return `https://drive.google.com/uc?export=download&id=${fileId}`;
+      }
+    }
+    
+    // Return original URL if not Google Drive/Docs
+    return url;
+  }
+
+  /**
+   * Download image from URL and return buffer
+   */
+  static async downloadImageFromURL(url) {
+    try {
+      // Check if URL is valid
+      if (!url || !url.startsWith('http')) {
+        console.log(`      ⚠️  Invalid URL: ${url}`);
+        return null;
+      }
+
+      // Convert Google Drive URLs to direct download format
+      url = this.convertToDirectDownloadURL(url);
+
+      const https = require('https');
+      const http = require('http');
+      const { URL } = require('url');
+
+      const parsedUrl = new URL(url);
+      const protocol = parsedUrl.protocol === 'https:' ? https : http;
+
+      return new Promise((resolve, reject) => {
+        const request = protocol.get(url, { timeout: 60000 }, (response) => {  // Increased to 60 seconds
+          // Check for redirect (301, 302, 303, 307, 308)
+          if ([301, 302, 303, 307, 308].includes(response.statusCode)) {
+            const redirectUrl = response.headers.location;
+            console.log(`      🔄 HTTP ${response.statusCode} - Following redirect...`);
+            this.downloadImageFromURL(redirectUrl).then(resolve).catch(reject);
+            return;
+          }
+
+          // Check if successful
+          if (response.statusCode !== 200) {
+            console.log(`      ❌ HTTP ${response.statusCode}`);
+            resolve(null);
+            return;
+          }
+
+          const chunks = [];
+          
+          response.on('data', (chunk) => {
+            chunks.push(chunk);
+          });
+
+          response.on('end', () => {
+            const buffer = Buffer.concat(chunks);
+            
+            // Get filename from URL or use default
+            const urlPath = parsedUrl.pathname;
+            const filename = urlPath.split('/').pop() || 'image.jpg';
+            
+            // Debug: Show first bytes of response
+            if (buffer.length > 0) {
+              const headerHex = buffer.slice(0, Math.min(16, buffer.length)).toString('hex');
+              const headerText = buffer.slice(0, Math.min(100, buffer.length)).toString('ascii').replace(/[^\x20-\x7E]/g, '.');
+              console.log(`      📦 Downloaded ${buffer.length} bytes`);
+              console.log(`      🔍 Header (hex): ${headerHex.substring(0, 32)}...`);
+              if (headerText.includes('<!DOCTYPE') || headerText.includes('<html')) {
+                console.log(`      ⚠️  Response is HTML, not an image!`);
+              }
+            }
+            
+            // Validate it's an image (check first few bytes for magic numbers)
+            const isImage = this.isImageBuffer(buffer);
+            
+            if (!isImage) {
+              console.log(`      ⚠️  Downloaded file is not an image`);
+              resolve(null);
+              return;
+            }
+
+            console.log(`      ✅ Valid image detected!`);
+            resolve({
+              buffer: buffer,
+              filename: filename,
+              size: buffer.length,
+              contentType: response.headers['content-type']
+            });
+          });
+        });
+
+        request.on('error', (error) => {
+          console.log(`      ❌ Download error: ${error.message}`);
+          resolve(null);
+        });
+
+        request.on('timeout', () => {
+          // Download timeout - silently skip this image
+          request.destroy();
+          resolve(null);
+        });
+      });
+
+    } catch (error) {
+      console.log(`      ❌ Error downloading: ${error.message}`);
+      return null;
+    }
+  }
+
+  /**
+   * Check if buffer contains image data
+   */
+  static isImageBuffer(buffer) {
+    if (!buffer || buffer.length < 4) return false;
+
+    // Check magic numbers for common image formats
+    const header = buffer.slice(0, 4).toString('hex');
+    
+    // JPEG: FFD8FF
+    if (header.startsWith('ffd8ff')) return true;
+    
+    // PNG: 89504E47
+    if (header === '89504e47') return true;
+    
+    // GIF: 47494638
+    if (header.startsWith('47494638')) return true;
+    
+    // WebP: 52494646 (RIFF)
+    if (header === '52494646') {
+      const webpHeader = buffer.slice(8, 12).toString('ascii');
+      return webpHeader === 'WEBP';
+    }
+    
+    return false;
   }
 
   static cleanValue(value, fieldType) {
@@ -666,19 +1094,35 @@ class StudentDataExtractor {
     value = value.trim();
 
     if (fieldType === 'student_id') {
-      return value.toUpperCase().replace(/[^A-Z0-9-]/g, '');
+      // Keep format: PDM-2023-000000
+      return value.toUpperCase();
+    } else if (fieldType === 'email') {
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(value) ? value.toLowerCase() : null;
     } else if (['contact_number', 'guardian_contact'].includes(fieldType)) {
       const cleaned = value.replace(/[^\d+]/g, '');
       return (cleaned.length >= 7 && cleaned.length <= 15) ? cleaned : null;
-    } else if (['full_name', 'guardian_name', 'surname', 'first_name'].includes(fieldType)) {
-      return value.replace(/[^A-Za-z\s.,-]/g, '').split(' ')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    } else if (['full_name', 'guardian_name', 'first_name', 'middle_name', 'last_name'].includes(fieldType)) {
+      return value.replace(/[^A-Za-zÑñ\s.,-]/g, '').split(' ')
+        .map(word => {
+          if (word.length === 0) return '';
+          return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+        })
         .join(' ');
+    } else if (fieldType === 'gender') {
+      const g = value.toUpperCase().charAt(0);
+      if (g === 'M' || g === 'MALE') return 'Male';
+      if (g === 'F' || g === 'FEMALE') return 'Female';
+      return value;
     } else if (fieldType === 'year') {
       const yearMatch = value.match(/([1-4])/);
       return yearMatch ? yearMatch[1] : null;
     } else if (['course', 'section'].includes(fieldType)) {
       return value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+    } else if (fieldType === 'image_url') {
+      // Return URL as-is
+      return value;
     }
 
     return value;
@@ -696,9 +1140,19 @@ class StudentDataExtractor {
       'CTE': ['BECED', 'BTLE']
     };
 
+    // First try exact match
     for (const [dept, courses] of Object.entries(knownCourses)) {
       if (courses.includes(courseUpper)) {
         return dept;
+      }
+    }
+
+    // Try partial match (in case course has extra characters)
+    for (const [dept, courses] of Object.entries(knownCourses)) {
+      for (const course of courses) {
+        if (courseUpper.includes(course) || course.includes(courseUpper)) {
+          return dept;
+        }
       }
     }
 
@@ -730,6 +1184,7 @@ class CORScheduleManager {
       // Program Information
       course: corData.metadata.course,
       section: corData.metadata.section,
+      term: corData.metadata.term,
       year: corData.metadata.year,  // ← CHANGED from year_level
       adviser: corData.metadata.adviser,
       department: corData.metadata.department,
@@ -786,6 +1241,9 @@ async getCORSchedules(filters = {}) {
     }
     if (filters.section) {
       query.section = filters.section;
+    }
+    if (filters.term) {
+      query.term = filters.term;
     }
 
     // If department filter is specified, search only that collection
@@ -890,7 +1348,21 @@ class StudentGradesManager {
    */
   async storeStudentGrades(gradesData) {
   try {
-    const studentNumber = gradesData.metadata.student_number;
+    // Handle both data structures (metadata OR student_info)
+    const studentInfo = gradesData.metadata || gradesData.student_info;
+    const gradesInfo = gradesData.grades_info || gradesData;
+    
+    if (!studentInfo) {
+      console.error('❌ No student info found in grades data');
+      return { success: false, reason: 'no_student_info' };
+    }
+    
+    const studentNumber = studentInfo.student_number;
+    
+    if (!studentNumber) {
+      console.error('❌ No student number found in grades data');
+      return { success: false, reason: 'no_student_number' };
+    }
     
     // CRITICAL: Check if student exists first
     const existingStudent = await this.db.getStudentById(studentNumber);
@@ -909,22 +1381,22 @@ class StudentGradesManager {
 
     const gradesDoc = {
       student_id: studentNumber,
-      student_name: gradesData.metadata.student_name,
+      student_name: studentInfo.student_name,
       full_name: existingStudent.full_name,
-      course: gradesData.metadata.course || existingStudent.course,
+      course: studentInfo.course || existingStudent.course,
       department: existingStudent.department,
-      year: existingStudent.year,  // ← CHANGED from year_level
+      year: existingStudent.year,
       section: existingStudent.section,
       
       // Grades data
-      gwa: gradesData.metadata.gwa,
-      total_subjects: gradesData.metadata.total_subjects,
-      grades: gradesData.grades_info.grades,
+      gwa: studentInfo.gwa,
+      total_subjects: studentInfo.total_subjects || (gradesInfo.grades ? gradesInfo.grades.length : 0),
+      grades: gradesInfo.grades || [],
       
       // Metadata
-      source_file: gradesData.metadata.source_file,
+      source_file: studentInfo.source_file || gradesData.source_file,
       data_type: 'student_grades',
-      created_at: gradesData.metadata.created_at,
+      created_at: studentInfo.created_at || new Date(),
       updated_at: new Date()
     };
 
@@ -3234,7 +3706,7 @@ class TeachingFacultyResumeManager {
         console.log('❌ No photo found for this faculty');
         return false;
       }
-      
+      // asdasda
       const fs = require('fs').promises;
       await fs.writeFile(outputPath, photo.buffer);
       

@@ -86,7 +86,7 @@ class CORExcelExtractor {
    * Scan entire sheet for program information
    */
   scanForProgramInfo(data, filename) {
-    const programInfo = { Program: '', 'Year Level': '', Section: '', Adviser: '' };
+    const programInfo = { Program: '', 'Year Level': '', Section: '', Term: '', Adviser: '' };
     
     console.log('\n🔍 Scanning COR Excel for program info...');
     
@@ -197,6 +197,33 @@ class CORExcelExtractor {
             if (cleaned) {
               programInfo.Section = cleaned;
               console.log(`   ✅ Found Section: ${cleaned}`);
+              continue;
+            }
+          }
+        }
+        
+        // TERM detection (after SECTION)
+        if (!programInfo.Term && (cellUpper.includes('TERM') || cellUpper.includes('SEMESTER'))) {
+          console.log(`   Found label at (${i},${j}): "${cellValue}"`);
+          
+          // Try same cell
+          const match = cellValue.match(/(?:TERM|SEMESTER)\s*[:=]?\s*(.+)/i);
+          if (match && match[1].trim()) {
+            const cleaned = this.cleanProgramInfoValue(match[1].trim(), 'Term');
+            if (cleaned) {
+              programInfo.Term = cleaned;
+              console.log(`   ✅ Found Term: ${cleaned}`);
+              continue;
+            }
+          }
+          
+          // Try adjacent cells
+          if (j + 1 < row.length) {
+            const nextValue = String(row[j + 1] || '').trim();
+            const cleaned = this.cleanProgramInfoValue(nextValue, 'Term');
+            if (cleaned) {
+              programInfo.Term = cleaned;
+              console.log(`   ✅ Found Term: ${cleaned}`);
               continue;
             }
           }
@@ -334,6 +361,21 @@ class CORExcelExtractor {
     // Extract section letter
     const match = value.match(/\b([A-Z])\b/);
     return match ? match[1] : value.substring(0, 1).toUpperCase();
+  } else if (field === 'Term') {
+    // Clean and standardize term/semester value
+    const valueUpper = value.toUpperCase();
+    
+    if (valueUpper.includes('1ST') || valueUpper.includes('FIRST')) {
+      return '1st Semester';
+    } else if (valueUpper.includes('2ND') || valueUpper.includes('SECOND')) {
+      return '2nd Semester';
+    } else if (valueUpper.includes('3RD') || valueUpper.includes('THIRD')) {
+      return '3rd Semester';
+    } else if (valueUpper.includes('SUMMER')) {
+      return 'Summer';
+    }
+    
+    return value;
   } else if (field === 'Adviser') {
     // Clean adviser name
     return value.replace(/[^a-zA-Z\s.,]/g, '').trim();
@@ -348,19 +390,77 @@ class CORExcelExtractor {
     convertExcelTimeToReadable(excelTime) {
     if (!excelTime || excelTime === '') return 'N/A';
     
-    // If it's already a string time (like "8:00 AM"), return as-is
-    if (typeof excelTime === 'string' && excelTime.includes(':')) {
-        return excelTime;
+    // If it's already a string time, try to parse it
+    if (typeof excelTime === 'string') {
+        const trimmed = excelTime.trim();
+        
+        // If empty or just whitespace, return N/A
+        if (!trimmed) return 'N/A';
+        
+        // Check if it's already formatted correctly
+        if (/^\d{1,2}:\d{2}\s*(AM|PM)$/i.test(trimmed)) {
+            return trimmed;
+        }
+        
+        // Try to extract time from string - be MORE LENIENT
+        if (trimmed.includes(':')) {
+            // Try multiple patterns
+            let match = trimmed.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+            
+            if (match) {
+                const hours = parseInt(match[1]);
+                const minutes = match[2];
+                const period = match[3].toUpperCase();
+                
+                // Only reject if hours are completely invalid (>12 or 0)
+                if (hours >= 1 && hours <= 12 && parseInt(minutes) >= 0 && parseInt(minutes) <= 59) {
+                    return `${hours}:${minutes} ${period}`;
+                }
+                
+                // If hours > 12, try to extract just the valid part
+                console.log(`   ⚠️ Invalid time hours: ${hours}:${minutes} ${period} - attempting to fix...`);
+            }
+            
+            // Try without AM/PM - might be 24-hour format
+            match = trimmed.match(/(\d{1,2}):(\d{2})/);
+            if (match) {
+                let hours = parseInt(match[1]);
+                const minutes = match[2];
+                
+                // Convert 24-hour to 12-hour
+                if (hours >= 0 && hours <= 23 && parseInt(minutes) >= 0 && parseInt(minutes) <= 59) {
+                    const period = hours >= 12 ? 'PM' : 'AM';
+                    const displayHours = hours === 0 ? 12 : (hours > 12 ? hours - 12 : hours);
+                    return `${displayHours}:${minutes} ${period}`;
+                }
+            }
+            
+            // Last resort - just return the original if it has time-like structure
+            console.log(`   ℹ️ Using time value as-is: "${trimmed}"`);
+            return trimmed;
+        }
     }
     
     // Convert Excel decimal to time
     const decimal = parseFloat(excelTime);
     if (isNaN(decimal)) return 'N/A';
     
+    // Validate decimal is within valid range (0 to 1)
+    if (decimal < 0 || decimal > 1) {
+        console.log(`   ⚠️ Invalid Excel time decimal: ${decimal}`);
+        return 'N/A';
+    }
+    
     // Excel time is stored as fraction of 24 hours
     const totalMinutes = Math.round(decimal * 24 * 60);
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;
+    
+    // Validate hours and minutes
+    if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
+        console.log(`   ⚠️ Invalid time values: ${hours}:${minutes}`);
+        return 'N/A';
+    }
     
     // Convert to 12-hour format
     const period = hours >= 12 ? 'PM' : 'AM';
@@ -463,17 +563,41 @@ class CORExcelExtractor {
 extractScheduleFlexible(data, startRow) {
   const schedule = [];
   
+  console.log(`\n🔍 [ULTRA-FLEXIBLE] Extracting schedule starting from row ${startRow}`);
+  console.log(`   Total rows to scan: ${data.length - startRow}`);
+  
   for (let i = startRow; i < data.length; i++) {
     const row = data[i] || [];
     if (row.length === 0) continue;
     
     const firstCell = String(row[0] || '').trim();
     
-    // Stop if we hit total or empty rows
-    if (!firstCell || /TOTAL/i.test(firstCell)) break;
+    // Stop conditions
+    if (!firstCell) {
+      console.log(`   Stopped at row ${i}: empty cell`);
+      break;
+    }
     
-    // Check if this looks like a subject code
-    if (!/^[A-Z]{2,4}\s*\d{2,4}[A-Z]?$/i.test(firstCell)) continue;
+    if (/TOTAL|SUMMARY|GRADE/i.test(firstCell)) {
+      console.log(`   Stopped at row ${i}: found "${firstCell}"`);
+      break;
+    }
+    
+    // Debug: Show first 10 rows
+    if (i < startRow + 10) {
+      console.log(`   Row ${i}: "${firstCell}" | "${String(row[1] || '').trim().substring(0, 30)}..."`);
+    }
+    
+    // ULTRA-FLEXIBLE: Accept ANY row with content in first column
+    // AND has at least 2 columns with data
+    const hasEnoughData = row.filter(cell => String(cell || '').trim()).length >= 2;
+    
+    if (!hasEnoughData) {
+      if (i < startRow + 10) {
+        console.log(`      ⚠️ Skipped - not enough data in row`);
+      }
+      continue;
+    }
     
     const subject = {
       'Subject Code': firstCell,
@@ -486,11 +610,22 @@ extractScheduleFlexible(data, startRow) {
       'Room': String(row[7] || '').trim()
     };
     
+    // Debug: Show time conversion for first few subjects
+    if (i < startRow + 5) {
+      console.log(`      Time cells for ${firstCell}: Start=[${typeof row[5]}]"${row[5]}" → "${subject['Time Start']}", End=[${typeof row[6]}]"${row[6]}" → "${subject['Time End']}"`);
+    }
+    
     schedule.push(subject);
+    
+    if (i < startRow + 3) {
+      console.log(`      ✅ Added subject: ${firstCell}`);
+    }
   }
   
+  console.log(`   ✅ Extracted ${schedule.length} subjects`);
   return schedule;
 }
+
 
   /**
    * Find total units anywhere in the sheet
@@ -532,6 +667,7 @@ PROGRAM INFORMATION:
 Program: ${corInfo.program_info.Program}
 Year Level: ${corInfo.program_info['Year Level']}
 Section: ${corInfo.program_info.Section}
+Term: ${corInfo.program_info.Term}
 Adviser: ${corInfo.program_info.Adviser}
 Total Units: ${corInfo.total_units || 'N/A'}
 
@@ -635,6 +771,7 @@ Subject ${i + 1}:
     const metadata = {
       course: corInfo.program_info.Program,
       section: corInfo.program_info.Section,
+      term: corInfo.program_info.Term,
       year: corInfo.program_info['Year Level'],  // ← CHANGED from year_level
       adviser: corInfo.program_info.Adviser,
       data_type: 'cor_schedule',
@@ -649,6 +786,13 @@ Subject ${i + 1}:
     console.log('✅ COR processing complete');
     console.log(`   📚 Subjects: ${metadata.subject_count}, Total Units: ${metadata.total_units}`);
     console.log(`   📋 Subject Codes: ${subjectCodesString}`);
+    console.log(`\n   📊 Metadata being saved to database:`);
+    console.log(`      Course: ${metadata.course}`);
+    console.log(`      Section: ${metadata.section}`);
+    console.log(`      Term: ${metadata.term}`);
+    console.log(`      Year: ${metadata.year} ${metadata.year === undefined ? '⚠️ UNDEFINED!' : '✅'}`);
+    console.log(`      Adviser: ${metadata.adviser}`);
+    console.log(`      Department: ${metadata.department}`);
     
     return {
       cor_info: corInfo,
