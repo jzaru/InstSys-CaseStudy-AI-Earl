@@ -1,0 +1,131 @@
+{
+  "test_version": 1,
+  "mode": "batch_qa",
+  "queries": [
+  { "id": 1, "query": "list all students" },
+    { "id": 2, "query": "list all BSCS students" },
+    { "id": 3, "query": "list all BSIT students" },
+    { "id": 4, "query": "list all BSHM students" },
+    { "id": 5, "query": "list all BSOA students" },
+    { "id": 6, "query": "how many students are in BSCS" },
+    { "id": 7, "query": "how many students are in BSIT" },
+    { "id": 8, "query": "how many students are in BSHM" },
+    { "id": 9, "query": "how many students are in BSOA" },
+    { "id": 10, "query": "list all BSCS 2nd year students" },
+    { "id": 11, "query": "list all BSIT 1st year students" },
+    { "id": 12, "query": "list all BSIT 4th year students" },
+    { "id": 13, "query": "list all BSHM 3rd year students" },
+    { "id": 14, "query": "list all BSOA 3rd year students" },
+    { "id": 15, "query": "list all CCS faculty" },
+    { "id": 16, "query": "who is the dean of the College of Computer Studies" },
+    { "id": 17, "query": "show details of student Michael Carpenter" },
+    { "id": 18, "query": "show details of student Paolo Torres" },
+    { "id": 19, "query": "get student grades of Michael Carpenter" },
+    { "id": 20, "query": "get student grades of Miguel Santos" },
+
+    { "id": 21, "query": "list subjects for BSCS 1st year" },
+    { "id": 22, "query": "list subjects for BSCS 2nd year" },
+    { "id": 23, "query": "list subjects for BSCS 3rd year" },
+    { "id": 24, "query": "list subjects for BSCS 4th year" },
+
+    { "id": 25, "query": "list subjects for BSIT 1st year" },
+    { "id": 26, "query": "list subjects for BSIT 2nd year" },
+    { "id": 27, "query": "list subjects for BSIT 3rd year" },
+    { "id": 28, "query": "list subjects for BSIT 4th year" },
+
+    { "id": 29, "query": "list subjects for BSHM 1st year" },
+    { "id": 30, "query": "list subjects for BSHM 2nd year" },
+    { "id": 31, "query": "list subjects for BSHM 3rd year" },
+    { "id": 32, "query": "list subjects for BSHM 4th year" },
+
+    { "id": 33, "query": "list subjects for BSOA 1st year" },
+    { "id": 34, "query": "list subjects for BSOA 2nd year" },
+    { "id": 35, "query": "list subjects for BSOA 3rd year" },
+    { "id": 36, "query": "list subjects for BSOA 4th year" },
+
+    { "id": 37, "query": "what is the vision of the institution" },
+    { "id": 38, "query": "what is the mission of the institution" },
+    { "id": 39, "query": "list objectives of the college" },
+    { "id": 40, "query": "summarize the mission statement" },
+    { "id": 41, "query": "summarize the vision statement" },
+    { "id": 42, "query": "identify key themes in the mission and vision" },
+
+    { "id": 43, "query": "who are the BSIT students named Sophia" },
+    { "id": 44, "query": "who are the BSIT students named Miguel" },
+    { "id": 45, "query": "who are the BSIT students named Carlo" },
+    { "id": 46, "query": "find all students with surname Cruz" },
+    { "id": 47, "query": "find all students with surname Mendoza" },
+    { "id": 48, "query": "find all students with surname Reyes" },
+
+    { "id": 49, "query": "show all students in CCS department" },
+    { "id": 50, "query": "show all students in CHTM department" },
+
+    { "id": 51, "query": "who teaches BSCS 2nd year" },
+    { "id": 52, "query": "who teaches BSIT 4th year" },
+    { "id": 53, "query": "who teaches BSHM 3rd year" },
+
+    { "id": 54, "query": "show curriculum total units for BSCS" },
+    { "id": 55, "query": "show curriculum total units for BSIT" },
+    { "id": 56, "query": "show curriculum total units for BSHM" },
+    { "id": 57, "query": "show curriculum total units for BSOA" },
+
+    { "id": 58, "query": "get the number of students per program" },
+    { "id": 59, "query": "get the number of students per year level" },
+
+    { "id": 60, "query": "who is the top student in BSCS" },
+    { "id": 61, "query": "who is the top student in BSHM" },
+    { "id": 62, "query": "who is the top student in BSIT" },
+
+    { "id": 63, "query": "which subjects are GE subjects in BSHM curriculum" },
+    { "id": 64, "query": "which subjects in BSIT curriculum are major subjects" },
+    { "id": 65, "query": "which subjects in BSCS require prerequisites" },
+
+    { "id": 66, "query": "show contact details of college dean" },
+    { "id": 67, "query": "show department of Christine Johnston" },
+    { "id": 68, "query": "what position does Patrick Carpenter hold" },
+
+    { "id": 69, "query": "list students of BSIT year 1 section A" },
+    { "id": 70, "query": "list students of BSIT year 4 section A" },
+    { "id": 71, "query": "list students of BSHM year 3 section B" },
+    { "id": 72, "query": "list students of BSCS year 2 section A" },
+    { "id": 73, "query": "list students of BSOA year 3 section A" },
+
+    { "id": 74, "query": "how many students have the first name Maria" },
+    { "id": 75, "query": "how many students have the first name Mark" },
+    { "id": 76, "query": "how many students have the first name Angela" },
+
+    { "id": 77, "query": "who handles student enrollment" },
+    { "id": 78, "query": "who is responsible for registrar operations" },
+
+    { "id": 79, "query": "which subjects do BSCS 2nd year students take in 1st semester" },
+    { "id": 80, "query": "which subjects do BSCS 2nd year students take in 2nd semester" },
+
+    { "id": 81, "query": "show curriculum for BSIT 3rd year 1st semester" },
+    { "id": 82, "query": "show curriculum for BSIT 3rd year 2nd semester" },
+
+    { "id": 83, "query": "list subjects for BSCS 3rd year 1st semester" },
+    { "id": 84, "query": "list subjects for BSCS 3rd year 2nd semester" },
+
+    { "id": 85, "query": "explain the purpose of the mission statement" },
+    { "id": 86, "query": "explain the focus of the vision statement" },
+
+    { "id": 87, "query": "what values are emphasized by the institution" },
+    { "id": 88, "query": "what traits should students develop based on mission" },
+
+    { "id": 89, "query": "give a short summary of the institution objectives" },
+    { "id": 90, "query": "identify key words in mission and vision" },
+
+    { "id": 91, "query": "compare curriculum of BSCS and BSIT" },
+    { "id": 92, "query": "compare curriculum of BSIT and BSHM" },
+    { "id": 93, "query": "compare curriculum of BSOA and BSHM" },
+
+    { "id": 94, "query": "who are the students named Catherine" },
+    { "id": 95, "query": "who are the students named Juan" },
+    { "id": 96, "query": "who are the students named Sophia" },
+
+    { "id": 97, "query": "show count of students grouped by surname" },
+    { "id": 98, "query": "group students by year level" },
+    { "id": 99, "query": "group students by department" },
+    { "id": 100, "query": "group students by program and year level" }
+  ]
+}
