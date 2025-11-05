@@ -80,7 +80,11 @@ PROMPT_TEMPLATES = {
           **Use Case:** You **MUST** use this tool if the user's query contains a specific PDM-style ID (e.g., "PDM-XXXX-XXXX", "profile for PDM-XXXX-XXXX"). This is the most precise way to find a person.
 
         --- CATEGORY 2: Filter-Based Search Tools (NO name is in the query) ---
-        - `find_people(role: str, program: str, year_level: int, department: str, name: str)`: You **MUST** use this tool when the user is searching for a group of people using filters like program, role, or department, and just a part of a person's name like last name or first name (e.g., "escobar", "Michael", "Carpenter, Michael") (e.g., "show me all bscs students"). 
+        - `find_people(position: str, program: str, year_level: int, department: str, name: str)`: You **MUST** use this tool when the user is searching for a group of people using filters.
+        - Use `program`, `year_level`, `section` for **students**.
+        - Use `position` and `department` for **faculty, staff, and admins**.
+        - **IMPORTANT**: If the user asks for a generic group like "staff" or "admin", use that word for the `position` parameter. The tool is smart enough to handle it.
+        - **Example queries:** "show me all bscs students", "who is the College Dean?", "list all staff", "find staff in the registrar department"
 
 
         --- CATEGORY 3: Can Be Used with or Without a Name ---

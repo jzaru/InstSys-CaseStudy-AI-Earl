@@ -125,6 +125,8 @@ class AIAnalyst:
             self.synth_llm = LLMService(online_cfg)
             self.debug_mode = offline_cfg.get("debug_mode", False)
 
+        self._build_dynamic_collection_groups()
+
         self.db_schema_summary = "Schema not generated yet."
         self.REVERSE_SCHEMA_MAP = self._create_reverse_schema_map()
         self._generate_db_schema()
@@ -138,6 +140,28 @@ class AIAnalyst:
         self.debug(f"  -> Found {len(self.all_departments)} departments: {self.all_departments}")
         self.debug(f"  -> Found {len(self.all_programs)} programs: {self.all_programs}")
         self.debug(f"  -> Found {len(self.all_statuses)} statuses: {self.all_statuses}")
+        # --- ADD THIS NEW BLOCK TO DYNAMICALLY DEFINE GENERIC ROLES ---
+        self.debug("Building dynamic role classifiers...")
+
+        # 1. Create lowercase sets of your pre-loaded lists
+        all_positions_lower = {p.lower() for p in self.all_positions}
+        all_depts_lower = {d.lower() for d in self.all_departments}
+
+        # 2. Create a small list of "meta" words that are always generic
+        #    This is the ONLY hard-coded list, and it's small.
+        hardcoded_synonyms = {'faculty', 'admin', 'staff', 'non-teaching', 'teaching', 'employee', 'personnel', 'student'}
+
+        # 3. Create our master list of ALL generic words
+        #    A role is "generic" if it's a department OR a common synonym
+        self.all_generic_roles = hardcoded_synonyms.union(all_depts_lower)
+
+        # 4. Create our master list of SPECIFIC positions
+        #    A role is "specific" if it's in the all_positions list
+        #    BUT NOT in our generic list.
+        self.specific_position_roles = all_positions_lower - self.all_generic_roles
+
+        self.debug(f"  -> All Generic Roles (Categories): {self.all_generic_roles}")
+        self.debug(f"  -> Specific Positions (Job Titles): {self.specific_position_roles}")
         self.all_doc_types = self._get_unique_document_types()
         self.policy_engine = PolicyEngine(known_programs=self.all_programs)
         self.training_system = TrainingSystem(mongo_db=self.mongo_db)
@@ -171,6 +195,91 @@ class AIAnalyst:
 
 
     # In analyst.py, inside the AIAnalyst class
+
+    # backend/utils/ai_core/analyst.py
+
+    # backend/utils/ai_core/analyst.py
+
+    # --- REPLACE THIS ENTIRE METHOD ---
+    def _build_dynamic_collection_groups(self):
+        """
+        [CORRECTED] Dynamically categorizes all loaded collections by their prefix
+        to support searching new collections automatically.
+        
+        This version fixes the bug where schedule collections were being
+        incorrectly grouped as staff profiles by checking for specific
+        schedule prefixes FIRST.
+        """
+        # 1. Initialize empty lists
+        student_list = []
+        staff_list = []
+        schedule_student_list = []
+        schedule_faculty_list = []
+        schedule_staff_list = []
+        curriculum_list = []
+        grades_list = []
+        
+        collection_keys = self.collections.keys()
+        
+        # 2. Sort collections, checking for MORE SPECIFIC names FIRST
+        for name in collection_keys:
+            # --- CHECK FOR SCHEDULES FIRST (MOST SPECIFIC) ---
+            if name.startswith("schedules_"):
+                schedule_student_list.append(name)
+            elif name.startswith("faculty_schedules_"):
+                schedule_faculty_list.append(name)
+            elif name.startswith("non_teaching_schedule_"):
+                schedule_staff_list.append(name)
+                
+            # --- CHECK FOR PROFILES SECOND (LESS SPECIFIC) ---
+            elif name.startswith("students_"):
+                student_list.append(name)
+            elif (
+                name.startswith("faculty_") or 
+                name.startswith("admin_") or 
+                name.startswith("non_teaching_faculty_") or 
+                name.startswith("teaching_faculty_")
+            ):
+                staff_list.append(name)
+                
+            # --- OTHER DATA TYPES ---
+            elif name.startswith("curriculum_"):
+                curriculum_list.append(name)
+            elif name.startswith("grades_"):
+                grades_list.append(name)
+            # 'general_info' and other specific collections are ignored, which is fine.
+
+        # 3. Store the Python LISTS for internal logic
+        self.student_collection_list = student_list
+        self.staff_collection_list = staff_list
+        self.staff_schedule_collection_list = schedule_staff_list
+
+        # 4. Convert lists to comma-separated STRINGS for the 'collection_filter' param
+        self.student_collections = ",".join(student_list)
+        self.staff_collections = ",".join(staff_list)
+        self.all_people_collections = ",".join(student_list + staff_list)
+        
+        self.student_schedule_collections = ",".join(schedule_student_list)
+        self.faculty_schedule_collections = ",".join(schedule_faculty_list)
+        self.staff_schedule_collections = ",".join(schedule_staff_list)
+        self.all_schedule_collections = ",".join(
+            schedule_student_list + schedule_faculty_list + schedule_staff_list
+        )
+
+        self.curriculum_collections = ",".join(curriculum_list)
+        self.grades_collections = ",".join(grades_list)
+
+        # 5. Log the results
+        self.debug("Dynamic collection groups built (v2 - Corrected):")
+        self.debug(f"  -> Students: {self.student_collections}")
+        self.debug(f"  -> Staff/Faculty/Admin: {self.staff_collections}")
+        self.debug(f"  -> Student Schedules: {self.student_schedule_collections}")
+        self.debug(f"  -> Staff/Faculty Schedules: {self.faculty_schedule_collections} | {self.staff_schedule_collections}")
+        self.debug(f"  -> Curriculums: {self.curriculum_collections}")
+        self.debug(f"  -> Grades: {self.grades_collections}")
+    # --- END OF REPLACEMENT ---
+
+    # --- ADD THIS ENTIRE NEW METHOD ---
 
     def _get_or_create_session(self, session_id: str) -> dict:
         """
@@ -856,108 +965,102 @@ class AIAnalyst:
         ] + person_docs
     
 
+    # backend/utils/ai_core/analyst.py
 
-    
-        
-    def find_people(self, name: str = None, role: str = None, program: str = None, year_level: int = None, section: str = None, department: str = None, employment_status: str = None, n_results: int = 1000) -> List[dict]: # Add n_results=50 here
-        """
-        Tool (Unified): A powerful, single tool to find any person or group (students or faculty)
-        using a combination of filters.
-        """
+    # backend/utils/ai_core/analyst.py
 
+    def find_people(self, name: str = None, position: str = None, program: str = None, year_level: int = None, section: str = None, department: str = None, employment_status: str = None, n_results: int = 1000) -> List[dict]:
+        """
+        Tool (Unified & DYNAMIC V4 - FINAL): A powerful, single tool to find any person or group.
+        - Uses 'position' to match the database schema.
+        - Uses the dynamic 'all_generic_roles' list to intelligently
+          skip the position filter when a generic category (like "staff") is used.
+        """
         try:
             n_results = int(n_results)
         except (ValueError, TypeError):
             n_results = 1000
 
-        self.debug(f"Running MERGED tool: find_people with params: name='{name}', role='{role}', program='{program}', dept='{department}'")
+        self.debug(f"Running DYNAMIC V4 tool: find_people with params: name='{name}', position='{position}', program='{program}', dept='{department}'")
         filters = {}
         collection_filter = None
-
-
-
-        if isinstance(role, list) and len(role) == 1:
-            self.debug(f"-> Normalizing single-item role list {role} to a string.")
-            role = role[0]
-
-
-        # --- WILDCARD SEARCH: If no parameters are given, return all people ---
-        if not any([name, role, program, year_level, section, department, employment_status]):
-            self.debug("-> No parameters provided. Searching for all students and faculty.")
-            return self.search_database(query_text="*", collection_filter="students,faculty")
-
-        # Intelligently determine if the search is for students or faculty
-        is_student_query = False
-        if isinstance(role, str) and role.lower() == 'student':
-            is_student_query = True
-        elif isinstance(role, list) and 'student' in [r.lower() for r in role]:
-            is_student_query = True
         
-        if is_student_query or program or year_level or section:
-            self.debug("-> Query identified as a STUDENT search.")
-            collection_filter = "students"
+        if isinstance(position, list) and len(position) == 1:
+            self.debug(f"-> Normalizing single-item position list {position} to a string.")
+            position = position[0]
+
+        pos_str = str(position).lower().strip() if position else ""
+
+        # --- WILDCARD SEARCH (DYNAMIC) ---
+        if not any([name, position, program, year_level, section, department, employment_status]):
+            self.debug(f"-> No parameters provided. Searching ALL people collections: {self.all_people_collections}")
+            return self.search_database(query_text="*", collection_filter=self.all_people_collections, n_results=n_results)
+
+        # --- INTELLIGENT COLLECTION ROUTING ---
+        is_student_query = (
+            'student' in pos_str or
+            program or 
+            year_level or 
+            section
+        )
+        
+        if is_student_query:
+            self.debug(f"-> Query identified as a STUDENT search. Using: {self.student_collections}")
+            collection_filter = self.student_collections
             if program: filters['program'] = program
             if year_level: filters['year_level'] = year_level
             if section: filters['section'] = section
             
-            # This is safer than a wildcard search.
             if not filters and is_student_query and not name:
-                student_only_filter = {"student_id": {"$exists": True}}
-                return self.search_database(filters=student_only_filter, collection_filter=collection_filter)
+                return self.search_database(query_text="*", collection_filter=self.student_collections)
+        
+        else: # This handles faculty, admin, staff, registrar, librarian, etc.
+            self.debug(f"-> Query identified as a FACULTY/STAFF/ADMIN search. Using: {self.staff_collections}")
+            collection_filter = self.staff_collections
             
-            # If it's a student query but no specific filters were found, search all students.
-            if not filters and not name:
-                self.debug("-> No specific student filters. Searching for all students.")
-                return self.search_database(query_text="*", collection_filter="students")
-        else:
-            self.debug("-> Query identified as a FACULTY/STAFF search.")
-            collection_filter = "faculty"
-            
-            if role:
-                # Handle a list of roles using the '$in' operator
-                if isinstance(role, list):
-                    filters['position'] = {'$in': role}
-                elif isinstance(role, str):
-                    role_lower = role.lower()
-                    if 'faculty' in role_lower or 'professor' in role_lower:
-                        #Dynamically get all faculty types ---
-                        all_faculty_types = self._get_unique_faculty_types()
-                        if all_faculty_types:
-                            filters['faculty_type'] = {'$in': all_faculty_types}
-                        else:
-                            # Fallback if no types are found, just search by position
-                            filters['position'] = role.upper()
-                    else:
-                        filters['position'] = role.upper()
-
+            # --- THIS IS THE FINAL, CORRECT LOGIC ---
+            # We check if the 'position' the Planner sent is GENERIC or SPECIFIC
+            if position and (pos_str not in self.all_generic_roles):
+                # This is SPECIFIC (e.g., "Librarian", "Professor").
+                self.debug(f"-> Applying SPECIFIC position filter for: {position}")
+                if isinstance(position, list):
+                    filters['position'] = {'$in': [re.compile(p, re.IGNORECASE) for p in position]}
+                elif isinstance(position, str):
+                    filters['position'] = {'$regex': position, '$options': 'i'}
+            elif position:
+                # This is GENERIC (e.g., "staff", "admin", "library").
+                # We SKIP the position filter to get EVERYONE in the department.
+                self.debug(f"-> Detected GENERIC position '{position}'. Filtering by collection/dept, not by position title.")
+            # --- END OF FINAL LOGIC ---
+                
             if department and department.lower() != 'all':
                 filters['department'] = department
-
             if employment_status:
                 filters['employment_status'] = employment_status
 
-            # If it's a faculty query but no specific filters were found, search all faculty.
-            if not filters and not name:
-                self.debug("-> No specific faculty filters. Searching for all faculty.")
-                return self.search_database(query_text="*", collection_filter="faculty")
+            if not filters and not name and position:
+                 return self.search_database(query_text="*", collection_filter=self.staff_collections)
 
-        # Enhance the search with entity resolution if a name is provided
+        # --- NAME SEARCH LOGIC ---
         if name:
             self.debug(f"-> Name provided. Using robust entity resolution for '{name}'.")
             entity = self.resolve_person_entity(name=name)
             if entity and entity.get("aliases"):
                 filters['full_name'] = {"$in": entity["aliases"]}
-                if not role and not is_student_query:
-                    collection_filter = None # Search all collections if role is ambiguous
-                    self.debug("-> Name search with no role, searching all collections.")
+                
+                if not any([position, program, year_level, section, department]):
+                    collection_filter = self.all_people_collections
+                    self.debug(f"-> Name search with no role, searching all collections: {self.all_people_collections}")
             else:
                 return [{"status": "empty", "summary": f"Could not find anyone named '{name}'."}]
 
         if not filters:
-            return [{"status": "error", "summary": "Please provide criteria to find people."}]
+             return [{"status": "error", "summary": "Please provide criteria to find people."}]
         
         
-        return self.search_database(filters=filters, collection_filter=collection_filter, n_results=n_results) # Pass n_results down
+        self.debug(f"-> Executing search on collections: '{collection_filter}' with filters: {filters}")
+        return self.search_database(filters=filters, collection_filter=collection_filter, n_results=n_results)
+
     
     def get_person_schedule(self, person_name: str = None, program: str = None, year_level: int = None, section: str = None) -> List[dict]:
         """
@@ -1666,6 +1769,7 @@ class AIAnalyst:
         self.db_schema_summary = "\n".join(parts)
         self.debug("DB Schema for planner:\n", self.db_schema_summary)
         
+        
     def _resolve_placeholders(self, params: dict, step_results: dict) -> dict:
         """
         Recursively searches for and replaces placeholders (e.g., '$program_from_step_1')
@@ -2271,7 +2375,7 @@ class AIAnalyst:
             except Exception: self.debug("Final where_clause (non-serializable):", where_clause)
 
         for name, coll in self.collections.items():
-            if collection_filter and isinstance(collection_filter, str) and collection_filter not in name:
+            if collection_filter and isinstance(collection_filter, str) and name not in collection_filter:
                 continue
             try:
                 res = coll.query(

@@ -16,6 +16,7 @@ from .analyst import AIAnalyst
 from .admin_insights import AdminInsights
 from .admin_analyst import AdminAnalyst
 from .admin_prompts import ADMIN_PLANNER_PROMPT, ADMIN_SYNTHESIS_SYSTEM, ADMIN_SYNTHESIS_USER_TEMPLATE
+
 # --- END NEW LINES ---
 
 
